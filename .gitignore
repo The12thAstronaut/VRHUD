@@ -10,6 +10,16 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+#Library and Build files from MoonVR
+MoonVR/Library/
+
+MoonVR/Temp/
+MoonVR/Obj/
+MoonVR/Build/
+MoonVR/Builds/
+MoonVR/Assets/AssetStoreTools*
+!MoonVR/Library/LastSceneManagerSetup.txt
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
