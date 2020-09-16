@@ -9,6 +9,8 @@ public class KeyWordRecognizerBehaviour : MonoBehaviour {
 	// keyword array
 	public string[] Keywords_array;
     public GameObject Panel;
+	public GameObject SphereRed;
+	public GameObject SphereBlue;
     public GameObject Task1;
     public GameObject Task2;
 
@@ -46,6 +48,17 @@ public class KeyWordRecognizerBehaviour : MonoBehaviour {
                 if(args.text == "Task Two"){
             // Debug.Log("Recognized");
             Task2.SetActive(true);
+        }
+                if(args.text == "Sphere Red"){
+            // Debug.Log("Recognized");
+            SphereRed.SetActive(true);
+            SphereBlue.SetActive(false);
+        }
+                if(args.text == "Sphere Blue"){
+            // Debug.Log("Recognized");
+            SphereRed.SetActive(false);
+            SphereBlue.SetActive(true);
+
         }
 	}
 }
