@@ -9,12 +9,16 @@ public class KeyWordRecognizerBehaviour : MonoBehaviour {
 	// keyword array
 	public string[] Keywords_array;
     public GameObject Panel;
-	public GameObject SphereRed;
-	public GameObject SphereBlue;
+    public GameObject ColorSphereOne;
+	public GameObject ColorSphereTwo;
+	public GameObject ColorSphereThree;
+    public GameObject SelectedSphere;
     public GameObject Task1;
     public GameObject Task2;
 
- 
+    public Material redMaterial;
+    public Material blueMaterial;
+
 	// Use this for initialization
 	void Start () {
 		// Change size of array for your requirement
@@ -27,38 +31,37 @@ public class KeyWordRecognizerBehaviour : MonoBehaviour {
 		keywordRecognizer.OnPhraseRecognized += OnKeywordsRecognized;
 		// start keyword recognizer
 		keywordRecognizer.Start ();
+
+        //Set to Sphere One by default
+        SelectedSphere = ColorSphereOne;
+
 	}
  
 	void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
 	{
 		Debug.Log ("Keyword: " + args.text + "; Confidence: " + args.confidence + "; Start Time: " + args.phraseStartTime + "; Duration: "  + args.phraseDuration);
-		// write your own logic
-        if(args.text == "Show Window"){
-            // Debug.Log("Recognized");
-            Panel.SetActive(true);
-        }
-                if(args.text == "Hide Window"){
-            // Debug.Log("Recognized");
-            Panel.SetActive(false);
-        }
-                if(args.text == "Task One"){
-            // Debug.Log("Recognized");
-            Task1.SetActive(true);
-        }
-                if(args.text == "Task Two"){
-            // Debug.Log("Recognized");
-            Task2.SetActive(true);
-        }
-                if(args.text == "Sphere Red"){
-            // Debug.Log("Recognized");
-            SphereRed.SetActive(true);
-            SphereBlue.SetActive(false);
-        }
-                if(args.text == "Sphere Blue"){
-            // Debug.Log("Recognized");
-            SphereRed.SetActive(false);
-            SphereBlue.SetActive(true);
+		// write your own logic here for voice commands based off of keywords in the keyword_array
 
+        if(args.text == "Red"){
+            SelectedSphere.GetComponent<Renderer>().material = redMaterial;
+        }
+        if(args.text == "Blue"){
+            SelectedSphere.GetComponent<Renderer>().material = blueMaterial;
+        }
+        if(args.text == "Hide"){
+            SelectedSphere.SetActive(false);
+        }
+        if(args.text == "Appear"){
+            SelectedSphere.SetActive(true);
+        }
+        if(args.text == "Sphere One"){
+            SelectedSphere = ColorSphereOne;
+        }
+        if(args.text == "Sphere Two"){
+            SelectedSphere = ColorSphereTwo;
+        }
+        if(args.text == "Sphere Three"){
+            SelectedSphere = ColorSphereThree;
         }
 	}
 }
