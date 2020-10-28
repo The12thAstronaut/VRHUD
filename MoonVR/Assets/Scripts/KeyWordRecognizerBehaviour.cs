@@ -63,5 +63,15 @@ public class KeyWordRecognizerBehaviour : MonoBehaviour {
         if(args.text == "Sphere Three"){
             SelectedSphere = ColorSphereThree;
         }
+        if(args.text == "Hide All"){
+            ColorSphereOne.SetActive(false);
+            ColorSphereTwo.SetActive(false);
+            ColorSphereThree.SetActive(false);
+        }
+        if(args.text == "Show All"){
+            ColorSphereOne.SetActive(true);
+            ColorSphereTwo.SetActive(true);
+            ColorSphereThree.SetActive(true);
+        }
 	}
 }
