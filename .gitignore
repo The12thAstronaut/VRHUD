@@ -20,6 +20,16 @@ MoonVR/Builds/
 MoonVR/Assets/AssetStoreTools*
 !MoonVR/Library/LastSceneManagerSetup.txt
 
+#Library and Build files from SpaceProject_v02
+SpaceProject_v02/Library/
+
+SpaceProject_v02/Temp/
+SpaceProject_v02/Obj/
+SpaceProject_v02/Build/
+SpaceProject_v02/Builds/
+SpaceProject_v02/Assets/AssetStoreTools*
+!SpaceProject_v02/Library/LastSceneManagerSetup.txt
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
