@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 
 public class Gaze_triggerPlane : MonoBehaviour
@@ -10,6 +11,9 @@ public class Gaze_triggerPlane : MonoBehaviour
     public GameObject target;
     public GameObject Trigger_R;
     public GameObject Trigger_L;
+    public Interactable ScrollDownButton;
+    public Interactable ScrollUpButton;
+
 
     private float d = 1f;
     private Transform _selection;
@@ -99,6 +103,21 @@ public class Gaze_triggerPlane : MonoBehaviour
             }
            
         }
+
+        //Scroll Down Gesture: U ->D, testing with space bar first
+        if (Input.GetKeyDown("space"))
+        {
+            print("Attemping to scroll down");
+            ScrollDownButton.TriggerOnClick();
+        }
+
+        //Scroll Up Gesture: D ->U, testing with "U" key
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            print("Attemping to scroll up");
+            ScrollUpButton.TriggerOnClick();
+        }
+        
         
         if(timeStart > 2){
             TriggerActive_R = false;
