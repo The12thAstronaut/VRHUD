@@ -4,12 +4,8 @@ using UnityEngine;
 using Leap;
 using Leap.Unity;
 
-public class GestureControl : MonoBehaviour
+public class Triggers_position : MonoBehaviour
 {
-    // Gaze Selection
-    [SerializeField] private string selectableTag =  "Selectable";
-    
-
     public Camera cam;
     public GameObject trigger_R;
     public GameObject trigger_L;
