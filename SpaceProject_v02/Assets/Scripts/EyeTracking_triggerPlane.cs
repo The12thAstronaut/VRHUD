@@ -5,7 +5,7 @@ using Tobii.XR;
 using Tobii.G2OM;
 using Microsoft.MixedReality.Toolkit.UI;
 
-public class EyeTracking_test : MonoBehaviour, IGazeFocusable
+public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
 {
     public GameObject menu;
     public GameObject Trigger_R;
