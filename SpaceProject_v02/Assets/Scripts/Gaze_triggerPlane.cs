@@ -103,9 +103,9 @@ public class Gaze_triggerPlane : MonoBehaviour
         if(TriggerActive_R && !showGestureMode){
             timeStart +=Time.deltaTime;
             hideGestureMode = true;
-            if(TriggerActive_L && timeStart <=2){           //checking to see if the left trigger is hit in 2 seconds
+            if(TriggerActive_L && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
                 menu.SetActive(false);
-                Debug.Log("Trigger L hit within 2 second");
+                Debug.Log("Trigger L hit within 1 second");
                 TriggerActive_R = false;
                 TriggerActive_L = false;
                 hideGestureMode = false;
@@ -117,9 +117,9 @@ public class Gaze_triggerPlane : MonoBehaviour
         if(TriggerActive_L && !hideGestureMode){
             timeStart +=Time.deltaTime;
             showGestureMode = true;
-            if(TriggerActive_R && timeStart <=2){           //checking to see if the left trigger is hit in 2 seconds
+            if(TriggerActive_R && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
                 menu.SetActive(true);
-                Debug.Log("Trigger R hit within 2 second");
+                Debug.Log("Trigger R hit within 1 second");
                 TriggerActive_R = false;
                 TriggerActive_L = false;
                 showGestureMode = false;
@@ -132,9 +132,9 @@ public class Gaze_triggerPlane : MonoBehaviour
             timeStart +=Time.deltaTime;
             scrollDownGestureMode = true;
             
-            if(TriggerActive_D && timeStart <=2){           //checking to see if the left trigger is hit in 2 seconds
+            if(TriggerActive_D && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
                 //target.SetActive(false);
-                Debug.Log("Trigger D hit within 2 second");
+                Debug.Log("Trigger D hit within 1 second");
                 TriggerActive_U = false;
                 TriggerActive_D = false;
                 scrollDownGestureMode = false;
@@ -149,9 +149,9 @@ public class Gaze_triggerPlane : MonoBehaviour
         if(TriggerActive_D && !scrollDownGestureMode){
             timeStart +=Time.deltaTime;
             scrollUpGestureMode = true;
-            if(TriggerActive_U && timeStart <=2){           //checking to see if the left trigger is hit in 2 seconds
+            if(TriggerActive_U && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
                 //target.SetActive(true);
-                Debug.Log("Trigger U hit within 2 second");
+                Debug.Log("Trigger U hit within 1 second");
                 TriggerActive_U = false;
                 TriggerActive_D = false;
                 scrollUpGestureMode = false;
@@ -160,7 +160,7 @@ public class Gaze_triggerPlane : MonoBehaviour
            
         }
         
-        if(timeStart > 2){
+        if(timeStart > 1){
             TriggerActive_R = false;
             TriggerActive_L = false;
             TriggerActive_U = false;
