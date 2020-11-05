@@ -1,99 +1,160 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
-using Leap.Unity;
-using Leap.Unity.Interaction;
-
-/// <summary>
-/// This simple script changes the color of an InteractionBehaviour as
-/// a function of its distance to the palm of the closest hand that is
-/// hovering nearby.
-/// </summary>
-[AddComponentMenu("")]
-[RequireComponent(typeof(InteractionBehaviour))]
 
 public class gesture_triggerPlane : MonoBehaviour
 {
-    [Tooltip("If enabled, the object will lerp to its hoverColor when a hand is nearby.")]
-    public bool useHover = true;
+   //public Camera cam;
+    //public GameObject target;
+    public GameObject menu;
+    public GameObject Trigger_R;
+    public GameObject Trigger_L;
+    public GameObject Trigger_U;
+    public GameObject Trigger_D;
+    public Interactable ScrollDownButton;
+    public Interactable ScrollUpButton;
 
-    [Tooltip("If enabled, the object will use its primaryHoverColor when the primary hover of an InteractionHand.")]
-    public bool usePrimaryHover = false;
+
+    private float d = 1f;
+    private Transform _selection;
+    private Color m_default = Color.white;
     
-    public GameObject target;
-    
-    [Header("InteractionBehaviour Colors")]
-    public Color defaultColor = Color.Lerp(Color.black, Color.white, 0.1F);
-    public Color suspendedColor = Color.red;
-    public Color hoverColor = Color.Lerp(Color.black, Color.white, 0.7F);
-    public Color primaryHoverColor = Color.Lerp(Color.black, Color.white, 0.8F);
+    private Color m_selected = new Color(1f,1f,0f, 1f);
 
-    [Header("InteractionButton Colors")]
-    [Tooltip("This color only applies if the object is an InteractionButton or InteractionSlider.")]
-    public Color pressedColor = Color.white;
-
-    private Material _material;
-
-    private InteractionBehaviour _intObj;
+    bool TriggerActive_R = false;
+    bool TriggerActive_L = false;
+    bool TriggerActive_U = false;
+    bool TriggerActive_D = false;
+    bool hideGestureMode = false;
+    bool showGestureMode = false;
+    bool scrollDownGestureMode = false;
+    bool scrollUpGestureMode = false;
+    private float timeStart =0;
     
     // Start is called before the first frame update
     void Start()
     {
-        _intObj = target.GetComponent<InteractionBehaviour>();
-        Renderer renderer = GetComponent<Renderer>();            //make target black and shows colors. but only R is yellow. L max is green
-        if (renderer == null) {
-            renderer = GetComponentInChildren<Renderer>();
-        }
-        if (renderer != null) {
-            _material = renderer.material;
-        }
+        
     }
 
     // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
-       // Print out only the assigned object
-       //Debug.Log("the object is " + _intObj.rigidbody.name);
-
-       //Debug.Log("the object is " + _intObj);
-       
-       if (_material != null) {
-           // The target color for the Interaction object will be determined by various simple state checks.
-           Color targetColor = defaultColor;
-           
-           // "Primary hover" is a special kind of hover state that an InteractionBehaviour can
-           // only have if an InteractionHand's thumb, index, or middle finger is closer to it
-           // than any other interaction object.
-           if (_intObj.isPrimaryHovered && usePrimaryHover) {
-               targetColor = primaryHoverColor;
-            }
-            else {
-                // Of course, any number of objects can be hovered by any number of InteractionHands.
-                // InteractionBehaviour provides an API for accessing various interaction-related
-                // state information such as the closest hand that is hovering nearby, if the object
-                // is hovered at all.
-                if (_intObj.isHovered && useHover) {
-                    float glow = _intObj.closestHoveringControllerDistance.Map(0F, 0.2F, 1F, 0.0F);
-                     targetColor = Color.Lerp(defaultColor, hoverColor, glow);
-                }
-            }
-
-            if (_intObj.isSuspended) {
-                // If the object is held by only one hand and that holding hand stops tracking, the
-                // object is "suspended." InteractionBehaviour provides suspension callbacks if you'd
-                // like the object to, for example, disappear, when the object is suspended.
-                // Alternatively you can check "isSuspended" at any time.
-                targetColor = suspendedColor;
-            }
-
-            // We can also check the depressed-or-not-depressed state of InteractionButton objects
-            // and assign them a unique color in that case.
-            if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed) {
-                targetColor = pressedColor;
-            }
-
-            // Lerp actual material color to the target color.
-            _material.color = Color.Lerp(_material.color, targetColor, 30F * Time.deltaTime);
+        // if it's not selected, then have default material
+        if (_selection != null)
+        {
+            var selectionRenderer = _selection.GetComponent<Renderer>();
+            selectionRenderer.material.color = m_default;
+            
+            _selection = null;
         }
-    } 
+        
+        
+        //Debug.DrawLine(cam.transform.position, cam.transform.position+cam.transform.forward * 10, Color.cyan);//RayCast line
+
+        //RaycastHit hit;
+        
+        if (Trigger_R.GetComponent<Renderer>().material.color == m_selected)
+        {
+            TriggerActive_R = true;
+            timeStart = 0;
+            Debug.Log("Trigger_R is selected");
+        }
+
+        if (Trigger_L.GetComponent<Renderer>().material.color == m_selected)
+        {
+            TriggerActive_L = true;
+            timeStart = 0;
+        }
+
+        if (Trigger_U.GetComponent<Renderer>().material.color == m_selected)
+        {
+            TriggerActive_U = true;
+            timeStart = 0;
+        }
+
+        if (Trigger_D.GetComponent<Renderer>().material.color == m_selected)
+        {
+            TriggerActive_D = true;
+            timeStart = 0;
+        }
+        
+        //Hide gesture: R ->L
+        if(TriggerActive_R && !showGestureMode){
+            Debug.Log("IN HIDE GESTURE MODE");
+            timeStart +=Time.deltaTime;
+            hideGestureMode = true;
+            if(TriggerActive_L && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
+                menu.SetActive(false);
+                Debug.Log("Trigger L hit within 1 second");
+                TriggerActive_R = false;
+                TriggerActive_L = false;
+                hideGestureMode = false;
+            }
+            
+            
+        }
+        //show gesture: L ->R
+        if(TriggerActive_L && !hideGestureMode){
+            timeStart +=Time.deltaTime;
+            showGestureMode = true;
+            if(TriggerActive_R && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
+                menu.SetActive(true);
+                Debug.Log("Trigger R hit within 1 second");
+                TriggerActive_R = false;
+                TriggerActive_L = false;
+                showGestureMode = false;
+            }
+           
+        }
+        
+        //Scroll Down Gesture: U ->D, testing with space bar first
+        if(TriggerActive_U && !scrollUpGestureMode){
+            timeStart +=Time.deltaTime;
+            scrollDownGestureMode = true;
+            
+            if(TriggerActive_D && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
+                //target.SetActive(false);
+                Debug.Log("Trigger D hit within 1 second");
+                TriggerActive_U = false;
+                TriggerActive_D = false;
+                scrollDownGestureMode = false;
+                ScrollDownButton.TriggerOnClick();
+            }
+            
+            
+        }
+        
+
+        //Scroll Up Gesture: D ->U, testing with "U" key
+        if(TriggerActive_D && !scrollDownGestureMode){
+            timeStart +=Time.deltaTime;
+            scrollUpGestureMode = true;
+            if(TriggerActive_U && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
+                //target.SetActive(true);
+                Debug.Log("Trigger U hit within 1 second");
+                TriggerActive_U = false;
+                TriggerActive_D = false;
+                scrollUpGestureMode = false;
+                ScrollUpButton.TriggerOnClick();
+            }
+           
+        }
+        
+        if(timeStart > 1){
+            TriggerActive_R = false;
+            TriggerActive_L = false;
+            TriggerActive_U = false;
+            TriggerActive_D = false;
+            hideGestureMode = false;
+            showGestureMode = false;
+            scrollDownGestureMode = false;
+            scrollUpGestureMode = false;
+            timeStart = 0;
+            Debug.Log("Time Reset");
+        }
+        
+    }
 }

@@ -29,10 +29,18 @@ public class Triggers_position : MonoBehaviour
         var gazeRay = cam.transform.forward;
 
         //triggers position
-        trigger_R.transform.position = cam.transform.position + .65f*gazeRay + .4f*d*cam.transform.right - .1f*d*cam.transform.up;
-        trigger_L.transform.position = cam.transform.position + .65f*gazeRay - .4f*d*cam.transform.right- .1f*d*cam.transform.up;
-        trigger_U.transform.position = cam.transform.position + .65f*gazeRay + .3f*d*cam.transform.up;
-        trigger_D.transform.position = cam.transform.position + .7f*gazeRay - .5f*d*cam.transform.up;
+        trigger_R.transform.LookAt (cam.transform.position);
+        trigger_R.transform.Rotate (90f, .0f, .0f);
+        trigger_R.transform.position = cam.transform.position + .5f*gazeRay + .4f*d*cam.transform.right - .1f*d*cam.transform.up;
+        trigger_L.transform.LookAt (cam.transform.position);
+        trigger_L.transform.Rotate (90f, .0f, .0f);
+        trigger_L.transform.position = cam.transform.position + .5f*gazeRay - .4f*d*cam.transform.right - .1f*d*cam.transform.up;
+        trigger_U.transform.LookAt (cam.transform.position);
+        trigger_U.transform.Rotate (.0f, 90f, 90f);
+        trigger_U.transform.position = cam.transform.position + .5f*gazeRay + .3f*d*cam.transform.up;
+        trigger_D.transform.LookAt (cam.transform.position);
+        trigger_D.transform.Rotate (.0f, 90f, 90f);
+        trigger_D.transform.position = cam.transform.position + .5f*gazeRay - .5f*d*cam.transform.up;
 
     }
     
