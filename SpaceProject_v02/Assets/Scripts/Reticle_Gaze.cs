@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reticle : MonoBehaviour
+public class Reticle_Gaze : MonoBehaviour
 {
     public Camera cam;
 

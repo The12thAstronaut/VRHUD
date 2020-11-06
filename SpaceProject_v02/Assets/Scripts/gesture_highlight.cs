@@ -20,13 +20,13 @@ public class gesture_highlight : MonoBehaviour
     [Tooltip("If enabled, the object will use its primaryHoverColor when the primary hover of an InteractionHand.")]
     public bool usePrimaryHover = false;
     
-    public GameObject target;
     
     [Header("InteractionBehaviour Colors")]
     public Color defaultColor = Color.Lerp(Color.black, Color.white, 0.1F);
     public Color suspendedColor = Color.red;
     public Color hoverColor = Color.Lerp(Color.black, Color.white, 0.7F);
-    public Color primaryHoverColor = Color.Lerp(Color.black, Color.white, 0.8F);
+    //public Color primaryHoverColor = Color.Lerp(Color.black, Color.white, 0.8F);
+    private Color primaryHoverColor = Color.yellow;
 
     [Header("InteractionButton Colors")]
     [Tooltip("This color only applies if the object is an InteractionButton or InteractionSlider.")]
@@ -39,7 +39,7 @@ public class gesture_highlight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _intObj = target.GetComponent<InteractionBehaviour>();
+        _intObj = GetComponent<InteractionBehaviour>();
         Renderer renderer = GetComponent<Renderer>();            //make target black and shows colors. but only R is yellow. L max is green
         if (renderer == null) {
             renderer = GetComponentInChildren<Renderer>();

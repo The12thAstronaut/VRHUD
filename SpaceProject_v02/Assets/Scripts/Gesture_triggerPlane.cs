@@ -20,7 +20,7 @@ public class gesture_triggerPlane : MonoBehaviour
     private Transform _selection;
     private Color m_default = Color.white;
     
-    private Color m_selected = new Color(1f,1f,0f, 1f);
+    private Color m_selected = Color.yellow;
 
     bool TriggerActive_R = false;
     bool TriggerActive_L = false;
