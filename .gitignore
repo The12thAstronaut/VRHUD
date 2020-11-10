@@ -30,6 +30,16 @@ SpaceProject_v02/Builds/
 SpaceProject_v02/Assets/AssetStoreTools*
 !SpaceProject_v02/Library/LastSceneManagerSetup.txt
 
+#Library and Build files from SpaceProject_final
+SpaceProject_final/Library/
+
+SpaceProject_final/Temp/
+SpaceProject_final/Obj/
+SpaceProject_final/Build/
+SpaceProject_final/Builds/
+SpaceProject_final/Assets/AssetStoreTools*
+!SpaceProject_final/Library/LastSceneManagerSetup.txt
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
