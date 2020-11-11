@@ -8,7 +8,6 @@ public class Gaze_triggerPlane : MonoBehaviour
     [SerializeField] private string selectableTag =  "Selectable";
 
     public Camera cam;
-    public GameObject target;
     public GameObject menu;
     public GameObject Trigger_R;
     public GameObject Trigger_L;
@@ -133,7 +132,6 @@ public class Gaze_triggerPlane : MonoBehaviour
             scrollDownGestureMode = true;
             
             if(TriggerActive_D && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
-                //target.SetActive(false);
                 Debug.Log("Trigger D hit within 1 second");
                 TriggerActive_U = false;
                 TriggerActive_D = false;
@@ -150,7 +148,6 @@ public class Gaze_triggerPlane : MonoBehaviour
             timeStart +=Time.deltaTime;
             scrollUpGestureMode = true;
             if(TriggerActive_U && timeStart <=1){           //checking to see if the left trigger is hit in 2 seconds
-                //target.SetActive(true);
                 Debug.Log("Trigger U hit within 1 second");
                 TriggerActive_U = false;
                 TriggerActive_D = false;
