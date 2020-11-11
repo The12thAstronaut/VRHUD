@@ -63,7 +63,7 @@ public class Gaze_triggerPlane : MonoBehaviour
             if (hit.collider.gameObject.name == "Trigger_R" ){
                 _selection = selection;
                 TriggerActive_R = true;
-                Trigger_R.GetComponent<Renderer>().material.color = Color.yellow;
+                //Trigger_R.GetComponent<Renderer>().material.color = Color.yellow;
                 timeStart = 0;
             }
         
@@ -71,7 +71,7 @@ public class Gaze_triggerPlane : MonoBehaviour
             if (hit.collider.gameObject.name == "Trigger_L"){
                 _selection = selection;
                 TriggerActive_L = true;
-                Trigger_L.GetComponent<Renderer>().material.color = Color.red;
+                //Trigger_L.GetComponent<Renderer>().material.color = Color.red;
                 timeStart = 0;
 
             }
@@ -80,7 +80,7 @@ public class Gaze_triggerPlane : MonoBehaviour
             if (hit.collider.gameObject.name == "Trigger_U" ){
                 _selection = selection;
                 TriggerActive_U = true;
-                Trigger_U.GetComponent<Renderer>().material.color = Color.yellow;
+                //Trigger_U.GetComponent<Renderer>().material.color = Color.yellow;
                 timeStart = 0;
             }
         
@@ -88,7 +88,7 @@ public class Gaze_triggerPlane : MonoBehaviour
             if (hit.collider.gameObject.name == "Trigger_D"){
                 _selection = selection;
                 TriggerActive_D = true;
-                Trigger_D.GetComponent<Renderer>().material.color = Color.red;
+                //Trigger_D.GetComponent<Renderer>().material.color = Color.red;
                 timeStart = 0;
 
             }
