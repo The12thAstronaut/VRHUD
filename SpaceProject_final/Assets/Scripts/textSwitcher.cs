@@ -22,6 +22,21 @@ public class textSwitcher : MonoBehaviour
         arrangeText(6,5,4,3,2,1,textPairArray);
     }
 
+    void Update()
+    {
+        //Randomizes text order if the "A" key is pressed
+        if(Input.GetKeyDown(KeyCode.A)){
+            arrangeText(
+                        Random.Range(1,7),
+                        Random.Range(1,7),
+                        Random.Range(1,7),
+                        Random.Range(1,7),
+                        Random.Range(1,7),
+                        Random.Range(1,7),
+                        textPairArray
+                        );
+        }
+    }
 
     //Moves text from one point in the array to another
     void copyText(int startIndex, int endIndex)
