@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Gaze_triggerPlane : MonoBehaviour
 {
-    [SerializeField] private string selectableTag =  "Selectable";
-
+    
     public Camera cam;
     public GameObject target;
     public GameObject menu;
