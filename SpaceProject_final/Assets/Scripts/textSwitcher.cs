@@ -19,7 +19,8 @@ public class textSwitcher : MonoBehaviour
             Debug.Log("FirstIndex " + 2*i + textPairArray[i,0]);
         }
 
-        arrangeText(6,5,4,3,2,1,textPairArray);
+        //Example of how to arrange text in reverse order
+        // arrangeText(6,5,4,3,2,1,textPairArray);
     }
 
     void Update()
@@ -36,7 +37,23 @@ public class textSwitcher : MonoBehaviour
                         textPairArray
                         );
         }
-    }
+        //Orders scroll menu item #1 to be at the end if the "1" keyboard button is pressed
+        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            arrangeText(6,5,4,3,2,1, textPairArray);
+        }
+
+        //Orders scroll menu item #2 to be at the end if the "2" keyboard button is pressed
+        if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            arrangeText(3,2,1,4,6,2, textPairArray);
+        }
+
+        //Orders scroll menu item #3 to be at the end if the "3" keyboard button is pressed
+        if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            arrangeText(4,6,2,1,5,3, textPairArray);
+        }
 
     //Moves text from one point in the array to another
     void copyText(int startIndex, int endIndex)
