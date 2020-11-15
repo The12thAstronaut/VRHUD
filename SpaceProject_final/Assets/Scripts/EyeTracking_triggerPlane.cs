@@ -18,10 +18,19 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
 
     private float AnimationTime = 0.1f;
     
-    private Renderer _renderer;
-    private Color _originalColor = Color.white;
+    private Renderer Trigger_R_renderer;
+    private Renderer Trigger_L_renderer;
+    private Renderer Trigger_U_renderer;
+    private Renderer Trigger_D_renderer;
+    private Color Trigger_R_originalColor = Color.white;
+    private Color Trigger_L_originalColor = Color.white;
+    private Color Trigger_U_originalColor = Color.white;
+    private Color Trigger_D_originalColor = Color.white;
     private Color HighlightColor = Color.yellow;
-    private Color _targetColor;
+    private Color Trigger_R_targetColor;
+    private Color Trigger_L_targetColor;
+    private Color Trigger_U_targetColor;
+    private Color Trigger_D_targetColor;
 
     bool TriggerActive_R = false;
     bool TriggerActive_L = false;
@@ -39,12 +48,18 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
     public void GazeFocusChanged(bool hasFocus){
         //If this object received focus, fade the object's color to highlight color
         if (hasFocus){
-            _targetColor = HighlightColor;
+            Trigger_R_targetColor = HighlightColor;
+            Trigger_L_targetColor = HighlightColor;
+            Trigger_U_targetColor = HighlightColor;
+            Trigger_D_targetColor = HighlightColor;
             
         }
         //If this object lost focus, fade the object's color to it's original color
         else{
-             _targetColor = _originalColor;
+            Trigger_R_targetColor = Trigger_R_originalColor;
+            Trigger_L_targetColor = Trigger_L_originalColor;
+            Trigger_U_targetColor = Trigger_U_originalColor;
+            Trigger_D_targetColor = Trigger_D_originalColor;
         }
     }  
     
@@ -52,13 +67,23 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
     // Start is called before the first frame update
     private void Start()
     {
-        _renderer = GetComponent<Renderer>();
-        _originalColor = _renderer.material.color;
-        _targetColor = _originalColor;
+        Trigger_R_renderer = Trigger_R.GetComponent<Renderer>();
+        Trigger_L_renderer = Trigger_L.GetComponent<Renderer>();
+        Trigger_U_renderer = Trigger_U.GetComponent<Renderer>();
+        Trigger_D_renderer = Trigger_D.GetComponent<Renderer>();
+        Trigger_R_originalColor = Trigger_R_renderer.material.color;
+        Trigger_L_originalColor = Trigger_L_renderer.material.color;
+        Trigger_U_originalColor = Trigger_U_renderer.material.color;
+        Trigger_D_originalColor = Trigger_D_renderer.material.color;
+        Trigger_R_targetColor = Trigger_R_originalColor;
+        Trigger_L_targetColor = Trigger_L_originalColor;
+        Trigger_U_targetColor = Trigger_U_originalColor;
+        Trigger_D_targetColor = Trigger_D_originalColor;
     }
     
     void Update()
     {
+        
         //Debug.Log("TobiiXR.FocusedObjects: " + TobiiXR.FocusedObjects.GameObject);
         // Check whether TobiiXR has any focused objects.
         if (TobiiXR.FocusedObjects.Count > 0)
@@ -71,7 +96,7 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
             //trigger R
             if(focusedGameObject == "Trigger_R"){
                 Debug.Log(" Trigger_R !!!!!!!!!!!!!!!!!!!!!!!!!!"); 
-                Trigger_R.GetComponent<Renderer>().material.color = Color.yellow;
+                Trigger_R.GetComponent<Renderer>().material.color = HighlightColor;
                 TriggerActive_R = true;
                 timeStart = 0;
             }
@@ -79,15 +104,15 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
             //trigger L
             if(focusedGameObject == "Trigger_L"){
                 Debug.Log(" Trigger_L !!!!!!!!!!!!!!!!!!!!!!!!!!"); 
-                Trigger_L.GetComponent<Renderer>().material.color = Color.red;
+                Trigger_L.GetComponent<Renderer>().material.color = HighlightColor;
                 TriggerActive_L = true;
                 timeStart = 0;
             }
-
+           
             //trigger U
             if(focusedGameObject == "Trigger_U"){
                 Debug.Log(" Trigger_U !!!!!!!!!!!!!!!!!!!!!!!!!!"); 
-                Trigger_U.GetComponent<Renderer>().material.color = Color.yellow;
+                Trigger_U.GetComponent<Renderer>().material.color = HighlightColor;
                 TriggerActive_U = true;
                 timeStart = 0;
             }
@@ -95,11 +120,27 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
             //trigger D
             if(focusedGameObject == "Trigger_D"){
                 Debug.Log(" Trigger_D !!!!!!!!!!!!!!!!!!!!!!!!!!"); 
-                Trigger_D.GetComponent<Renderer>().material.color = Color.red;
+                Trigger_D.GetComponent<Renderer>().material.color = HighlightColor;
                 TriggerActive_D = true;
                 timeStart = 0;
             }
             
+            /*
+            if(focusedGameObject != "Trigger_R"){
+                Trigger_R.GetComponent<Renderer>().material.color = _originalColor;
+            }
+            
+            if(focusedGameObject != "Trigger_L"){
+                Trigger_L.GetComponent<Renderer>().material.color = _originalColor;
+            }
+            
+            if(focusedGameObject != "Trigger_U"){
+                Trigger_U.GetComponent<Renderer>().material.color = _originalColor;
+            }
+            if(focusedGameObject != "Trigger_D"){
+                Trigger_D.GetComponent<Renderer>().material.color = _originalColor;
+            }
+            */
         }
 
 
@@ -179,8 +220,11 @@ public class EyeTracking_triggerPlane : MonoBehaviour, IGazeFocusable
             Debug.Log("Time Reset");
         }
         
+        
 
-
-        //_renderer.material.color = Color.Lerp(_renderer.material.color, _targetColor, Time.deltaTime * (1 / AnimationTime));
+        Trigger_R_renderer.material.color = Color.Lerp(Trigger_R_renderer.material.color, Trigger_R_targetColor, Time.deltaTime * (1 / AnimationTime));
+        Trigger_L_renderer.material.color = Color.Lerp(Trigger_L_renderer.material.color, Trigger_L_targetColor, Time.deltaTime * (1 / AnimationTime));
+        Trigger_U_renderer.material.color = Color.Lerp(Trigger_U_renderer.material.color, Trigger_U_targetColor, Time.deltaTime * (1 / AnimationTime));
+        Trigger_D_renderer.material.color = Color.Lerp(Trigger_D_renderer.material.color, Trigger_D_targetColor, Time.deltaTime * (1 / AnimationTime));
     }
 }
