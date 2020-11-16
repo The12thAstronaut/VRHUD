@@ -40,6 +40,9 @@ SpaceProject_final/Builds/
 SpaceProject_final/Assets/AssetStoreTools*
 !SpaceProject_final/Library/LastSceneManagerSetup.txt
 
+#Don't ignore input settings
+!SpaceProject_final/ProjectSettings/InputManager.asset
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
