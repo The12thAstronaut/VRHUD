@@ -16,7 +16,19 @@ public class sceneLoader : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Y))
         {
+              SceneManager.LoadScene("moonScene_Eyetracking", LoadSceneMode.Single);
+        }
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+              SceneManager.LoadScene("moonScene_Gaze", LoadSceneMode.Single);
+        }
+        if(Input.GetKeyDown(KeyCode.I))
+        {
               SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
+        }
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+              SceneManager.LoadScene("moonScene_Voice", LoadSceneMode.Single);
         }
     }
 }
