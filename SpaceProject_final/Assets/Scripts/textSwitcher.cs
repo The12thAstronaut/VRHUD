@@ -46,7 +46,7 @@ public class textSwitcher : MonoBehaviour
         //Orders scroll menu item #2 to be at the end if the "2" keyboard button is pressed
         if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
         {
-            arrangeText(3,2,1,4,6,2, textPairArray);
+            arrangeText(1,3,5,4,6,2, textPairArray);
         }
 
         //Orders scroll menu item #3 to be at the end if the "3" keyboard button is pressed
