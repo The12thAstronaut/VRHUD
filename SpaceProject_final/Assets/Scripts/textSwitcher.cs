@@ -54,7 +54,7 @@ public class textSwitcher : MonoBehaviour
         {
             arrangeText(4,6,2,1,5,3, textPairArray);
         }
-
+    }
     //Moves text from one point in the array to another
     void copyText(int startIndex, int endIndex)
     {
