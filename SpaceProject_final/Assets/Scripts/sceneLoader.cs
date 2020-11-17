@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class sceneLoader : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,7 +21,7 @@ public class sceneLoader : MonoBehaviour
             || (Input.GetAxis("RightVIVETrackpadHorizontal") == -1.0)
             )
         {
-              SceneManager.LoadScene("moonScene_Gaze", LoadSceneMode.Single);
+            SceneManager.LoadScene("moonScene_Gaze", LoadSceneMode.Single);
         }
 
         //If the top side of the VIVE left controller trackpad is pressed, load scene
@@ -29,7 +30,7 @@ public class sceneLoader : MonoBehaviour
             || (Input.GetAxis("RightVIVETrackpadVertical") == 1.0)
             )
         {
-              SceneManager.LoadScene("moonScene_Eyetracking", LoadSceneMode.Single);
+            SceneManager.LoadScene("moonScene_Eyetracking", LoadSceneMode.Single);
         }
 
         //If the right side of the VIVE left/right controller trackpad is pressed, load scene
@@ -38,7 +39,7 @@ public class sceneLoader : MonoBehaviour
             || (Input.GetAxis("RightVIVETrackpadHorizontal") == 1.0)
             )
         {
-              SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
+            SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
         }
 
         //If the bottom side of the VIVE left controller trackpad is pressed, load scene
@@ -47,7 +48,7 @@ public class sceneLoader : MonoBehaviour
                 || (Input.GetAxis("RightVIVETrackpadVertical") == -1.0)
             )
         {
-              SceneManager.LoadScene("moonScene_Voice", LoadSceneMode.Single);
+            SceneManager.LoadScene("moonScene_Voice", LoadSceneMode.Single);
         }
 
         if (Input.GetAxis("LeftVRTriggerAxis") == 1.0)
