@@ -16,44 +16,33 @@ public class sceneLoader : MonoBehaviour
     void Update()
     {
         //If the left side of the VIVE left/right controller trackpad is pressed, load scene
-        if(Input.GetKeyDown(KeyCode.Y)
-            || (Input.GetAxis("LeftVIVETrackpadHorizontal") == -1.0) 
-            || (Input.GetAxis("RightVIVETrackpadHorizontal") == -1.0)
-            )
+        if(Input.GetKeyDown(KeyCode.Y))
         {
             SceneManager.LoadScene("moonScene_Gaze", LoadSceneMode.Single);
         }
 
         //If the top side of the VIVE left controller trackpad is pressed, load scene
-        if(Input.GetKeyDown(KeyCode.U)
-            || (Input.GetAxis("LeftVIVETrackpadVertical") == 1.0)
-            || (Input.GetAxis("RightVIVETrackpadVertical") == 1.0)
-            )
+        if(Input.GetKeyDown(KeyCode.U))
         {
             SceneManager.LoadScene("moonScene_Eyetracking", LoadSceneMode.Single);
         }
 
         //If the right side of the VIVE left/right controller trackpad is pressed, load scene
-        if(Input.GetKeyDown(KeyCode.I)
-            || (Input.GetAxis("LeftVIVETrackpadHorizontal") == 1.0) 
-            || (Input.GetAxis("RightVIVETrackpadHorizontal") == 1.0)
-            )
-        {
-            SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
-        }
-
-        //If the bottom side of the VIVE left controller trackpad is pressed, load scene
-        if(Input.GetKeyDown(KeyCode.O)
-                || (Input.GetAxis("LeftVIVETrackpadVertical") == -1.0)
-                || (Input.GetAxis("RightVIVETrackpadVertical") == -1.0)
-            )
+        if(Input.GetKeyDown(KeyCode.I))
         {
             SceneManager.LoadScene("moonScene_Voice", LoadSceneMode.Single);
         }
 
-        if (Input.GetAxis("LeftVRTriggerAxis") == 1.0)
+        //If the bottom side of the VIVE left controller trackpad is pressed, load scene
+        if(Input.GetKeyDown(KeyCode.O))
         {
-            Debug.Log("Left Controller Trigger Pressed");
+            SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
         }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene("moonScene_Wrist", LoadSceneMode.Single);
+        }
+
     }
 }

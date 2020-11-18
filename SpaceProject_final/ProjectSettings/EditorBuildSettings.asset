@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PracticeScene_Voice.unity
     guid: 6331c38791bf9a348b44f42a50123132
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_Wrist.unity
+    guid: b244b2bfc601ca745b89a78df8203047
   m_configObjects: {}
