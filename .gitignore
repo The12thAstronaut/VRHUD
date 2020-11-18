@@ -40,6 +40,16 @@ SpaceProject_final/Builds/
 SpaceProject_final/Assets/AssetStoreTools*
 !SpaceProject_final/Library/LastSceneManagerSetup.txt
 
+#Library and Build files from VRHUD_Handtracking_Copy
+VRHUD_Handtracking_Copy/Library/
+
+VRHUD_Handtracking_Copy/Temp/
+VRHUD_Handtracking_Copy/Obj/
+VRHUD_Handtracking_Copy/Build/
+VRHUD_Handtracking_Copy/Builds/
+VRHUD_Handtracking_Copy/Assets/AssetStoreTools*
+!VRHUD_Handtracking_Copy/Library/LastSceneManagerSetup.txt
+
 #Don't ignore input settings
 !SpaceProject_final/ProjectSettings/InputManager.asset
 

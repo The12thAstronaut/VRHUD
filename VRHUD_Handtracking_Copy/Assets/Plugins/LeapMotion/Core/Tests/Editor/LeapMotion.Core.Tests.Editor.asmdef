@@ -1,0 +1,19 @@
+{
+    "name": "LeapMotion.Core.Tests.Editor",
+    "references": [
+        "LeapMotion",
+        "LeapMotion.LeapCSharp"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
