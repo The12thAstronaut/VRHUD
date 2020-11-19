@@ -1,0 +1,7 @@
+participantID,currentTimeString,timeDifference,sceneName,trialNumber,
+participantID,currentTimeString,timeDifference,sceneName,trialNumber,
+participantID,currentTimeString,timeDifference,sceneName,trialNumber,
+0,327.518600,327.518600,moonScene_Gaze,6,
+0,361.825200,34.306670,moonScene_Voice,7,
+0,399.568600,37.743410,moonScene_Eyetracking,8,
+0,438.724600,39.156010,moonScene_Gesture,9,
