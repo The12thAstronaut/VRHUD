@@ -25,6 +25,11 @@ public class textSwitcher : MonoBehaviour
 
     void Update()
     {
+        //Randomizes number values within string if the "Q" key is pressed
+        if(Input.GetKeyDown(KeyCode.Q)){
+            randomizeString(textPairArray);
+        }
+
         //Randomizes text order if the "A" key is pressed
         if(Input.GetKeyDown(KeyCode.A)){
             arrangeText(
@@ -59,6 +64,31 @@ public class textSwitcher : MonoBehaviour
     void copyText(int startIndex, int endIndex)
     {
         textArray[endIndex].text = textArray[startIndex].text;
+    }
+
+    //Randomizes string number values
+    void randomizeString(
+        string[,] PairArray
+        )
+    {
+        for(int i=0; i<6; i++)
+        {
+            //Generate random float value
+            float newValue = Random.Range(0.01f, 11.1f);
+
+            //Convert newValue to a string with 2 decimal points and save to the textArray
+            PairArray[i,1] = ("$" + newValue.ToString("F2"));
+            textArray[(2*i+1)].text = PairArray[i,1];
+        }
+
+        // WIP, only deviate a certain range from original value
+        // //Split string based on $ character
+        // var sStrings = PairArray[0,1].Split("$"[0]);
+ 
+        // Debug.Log(sStrings[1]);
+
+        // //Convert string value to a float
+        // float currentValue = float.Parse(sStrings[1]);
     }
 
     //Arranges pairs of text in order specified
