@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class textSwitcher : MonoBehaviour
 {
@@ -73,11 +74,23 @@ public class textSwitcher : MonoBehaviour
     {
         for(int i=0; i<6; i++)
         {
-            //Generate random float value
-            float newValue = Random.Range(0.01f, 11.1f);
 
-            //Convert newValue to a string with 2 decimal points and save to the textArray
-            PairArray[i,1] = ("$" + newValue.ToString("F2"));
+            //Check to see if the user is in a PracticeScene*
+            if(SceneManager.GetActiveScene().name.StartsWith("PracticeScene"))
+            {
+                //Generate random price float value between 0.1 and 11.1
+                float newValue = Random.Range(0.01f, 11.1f);
+                //Convert newValue to a string with 2 decimal points
+                PairArray[i,1] = ("$" + newValue.ToString("F2"));
+            }
+            else
+            {
+                //Generate random distance value between 2.1 and 99.9 km
+                float newValue = Random.Range(0.01f, 11.1f);
+                PairArray[i,1] = (newValue.ToString("F1") + " km");
+            }
+
+            // Save the newValue to textArray
             textArray[(2*i+1)].text = PairArray[i,1];
         }
 
@@ -85,8 +98,6 @@ public class textSwitcher : MonoBehaviour
         // //Split string based on $ character
         // var sStrings = PairArray[0,1].Split("$"[0]);
  
-        // Debug.Log(sStrings[1]);
-
         // //Convert string value to a float
         // float currentValue = float.Parse(sStrings[1]);
     }
