@@ -35,7 +35,7 @@ public class logCSV : MonoBehaviour
     {
         pastTime = 0.0f;
         //Add a header line to the csv file
-        addRecord("participantID", "currentTimeString", "timeDifference", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
+        addRecord("participantID", "currentTimeString", "timeDifference", "sceneName", "sceneNumber", participantID + "_VRHUD_Task_Time.csv");
         trialNumber = -1;
 
     }
@@ -44,7 +44,9 @@ public class logCSV : MonoBehaviour
     void Update()
     {
         currentTime = Time.time;
-        currentTimeString = currentTime.ToString("f6");     //Save game time in seconds as a string
+        int min = Mathf.FloorToInt(currentTime/60);
+        int sec = Mathf.FloorToInt(currentTime%60);
+        currentTimeString = min.ToString("00") + ":" + sec.ToString("00");     //Save game time in seconds as a string
        
         //Set currentScene to the active scene
         currentScene = SceneManager.GetActiveScene();
