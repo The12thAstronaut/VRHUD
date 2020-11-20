@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/moonScene_Voice.unity
     guid: 19a572044fa186f43bd2ef4132a6a8d2
   - enabled: 1
-    path: Assets/Scenes/moonScene_wrist.unity
+    path: Assets/Scenes/moonScene_PopUpWindow.unity
     guid: 321ee63007b05d5408165a5bffe5db73
   - enabled: 1
     path: Assets/Scenes/PracticeScene_Eyetracking.unity
