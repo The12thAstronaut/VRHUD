@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class textSwitcher : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class textSwitcher : MonoBehaviour
 
     void Update()
     {
+        //Randomizes number values within string if the "Q" key is pressed
+        if(Input.GetKeyDown(KeyCode.Q)){
+            randomizeString(textPairArray);
+        }
+
         //Randomizes text order if the "A" key is pressed
         if(Input.GetKeyDown(KeyCode.A)){
             arrangeText(
@@ -59,6 +65,41 @@ public class textSwitcher : MonoBehaviour
     void copyText(int startIndex, int endIndex)
     {
         textArray[endIndex].text = textArray[startIndex].text;
+    }
+
+    //Randomizes string number values
+    void randomizeString(
+        string[,] PairArray
+        )
+    {
+        for(int i=0; i<6; i++)
+        {
+
+            //Check to see if the user is in a PracticeScene*
+            if(SceneManager.GetActiveScene().name.StartsWith("PracticeScene"))
+            {
+                //Generate random price float value between 0.1 and 11.1
+                float newValue = Random.Range(0.01f, 11.1f);
+                //Convert newValue to a string with 2 decimal points
+                PairArray[i,1] = ("$" + newValue.ToString("F2"));
+            }
+            else
+            {
+                //Generate random distance value between 2.1 and 99.9 km
+                float newValue = Random.Range(0.01f, 11.1f);
+                PairArray[i,1] = (newValue.ToString("F1") + " km");
+            }
+
+            // Save the newValue to textArray
+            textArray[(2*i+1)].text = PairArray[i,1];
+        }
+
+        // WIP, only deviate a certain range from original value
+        // //Split string based on $ character
+        // var sStrings = PairArray[0,1].Split("$"[0]);
+ 
+        // //Convert string value to a float
+        // float currentValue = float.Parse(sStrings[1]);
     }
 
     //Arranges pairs of text in order specified

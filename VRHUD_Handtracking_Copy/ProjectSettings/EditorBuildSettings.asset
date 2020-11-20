@@ -8,4 +8,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/moonScene_Eyetracking.unity
+    guid: e19fc225ca41d3b439c8306c5b94b54a
+  - enabled: 1
+    path: Assets/Scenes/moonScene_Gaze.unity
+    guid: 0d16e194d3d801a459c0584cf4b76b43
+  - enabled: 1
+    path: Assets/Scenes/moonScene_Gesture.unity
+    guid: 40aa60ccbaa975d4e8c5b1fa704f9e4c
+  - enabled: 1
+    path: Assets/Scenes/moonScene_Voice.unity
+    guid: 19a572044fa186f43bd2ef4132a6a8d2
+  - enabled: 1
+    path: Assets/Scenes/moonScene_wrist.unity
+    guid: 321ee63007b05d5408165a5bffe5db73
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_Eyetracking.unity
+    guid: 2f2023cecc459744fbc9f8fb01dac80b
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_Gaze.unity
+    guid: 9cb8d6996a942704b822a158542e7b83
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_Gesture.unity
+    guid: f9d5d8c8489b1f94f8275c38efa9be38
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_Voice.unity
+    guid: 6331c38791bf9a348b44f42a50123132
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_PopUpWindow.unity
+    guid: b244b2bfc601ca745b89a78df8203047
+  - enabled: 1
+    path: Assets/Scenes/startScene.unity
+    guid: 606b24c1bb4831e47bd4a6377469f812
   m_configObjects: {}
