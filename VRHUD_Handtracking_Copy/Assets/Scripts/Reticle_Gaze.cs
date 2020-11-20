@@ -17,6 +17,6 @@ public class Reticle_Gaze : MonoBehaviour
     {
         transform.LookAt (cam.transform.position);
         transform.Rotate (.0f, 180f, .0f);
-        transform.position = cam.transform.position + 1f*cam.transform.forward;
+        transform.position = cam.transform.position + 0.5f*cam.transform.forward;
     }
 }
