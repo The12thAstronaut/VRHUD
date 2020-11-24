@@ -11082,7 +11082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be69aef7b60744740840ead2c516ecd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trialNumber: 0
 --- !u!1 &8973085080104483738
 GameObject:
   m_ObjectHideFlags: 0
@@ -11236,7 +11235,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8973085080116688619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -14069,7 +14068,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8973085080442748718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

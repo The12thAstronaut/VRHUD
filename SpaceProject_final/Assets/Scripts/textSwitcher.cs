@@ -17,7 +17,7 @@ public class textSwitcher : MonoBehaviour
             //Store all items in textArray as pairs (fruit name and fruit price)
             textPairArray[i,0] = textArray[2*i].text;
             textPairArray[i,1] = textArray[2*i+1].text;
-            Debug.Log("FirstIndex " + 2*i + textPairArray[i,0]);
+            //Debug.Log("FirstIndex " + 2*i + textPairArray[i,0]);
         }
 
         //Example of how to arrange text in reverse order
@@ -59,6 +59,25 @@ public class textSwitcher : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
         {
             arrangeText(4,6,2,1,5,3, textPairArray);
+        }
+        
+        
+        //Orders scroll menu item #4 to be at the end if the "4" keyboard button is pressed
+        if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            arrangeText(3,1,6,2,5,4, textPairArray);
+        }
+
+        //Orders scroll menu item #5 to be at the end if the "5" keyboard button is pressed
+        if(Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            arrangeText(2,4,1,3,6,5, textPairArray);
+        }
+
+        //Orders scroll menu item #6 to be at the end if the "6" keyboard button is pressed
+        if(Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            arrangeText(5,3,1,2,4,6, textPairArray);
         }
     }
     //Moves text from one point in the array to another
@@ -145,8 +164,10 @@ public class textSwitcher : MonoBehaviour
             // Debug.Log("textArray[2*pair6Order]2: " + textArray[2*pair6Order+1].text);
                 for (int i=0 ; i<=5; i++)
                 {
-                    Debug.Log("Index " + 2*i + PairArray[i,0]);
+                    //Debug.Log("Index " + 2*i + PairArray[i,0]);
                 }
 
     }
+
+
 }

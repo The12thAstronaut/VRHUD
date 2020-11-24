@@ -17,6 +17,6 @@ public class Reticle_Gesture : MonoBehaviour
     {
         transform.LookAt (cam.transform.position);
         transform.Rotate (.0f, 180f, .0f);
-        transform.position = cam.transform.position + 1f*cam.transform.forward - .15f*cam.transform.up;
+        transform.position = cam.transform.position + 0.47f*cam.transform.forward - .15f*cam.transform.up;
     }
 }
