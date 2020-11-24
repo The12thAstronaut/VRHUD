@@ -11,7 +11,8 @@ using UnityEngine.SceneManagement;
 public class logCSV : MonoBehaviour
 {
     private string currentTimeString;
-    public string timeDifference;
+    public float timeDifference;
+    public string timeDifferenceString;
 
     public float currentTime;    
     public float pastTime;
@@ -35,7 +36,7 @@ public class logCSV : MonoBehaviour
     {
         pastTime = 0.0f;
         //Add a header line to the csv file
-        addRecord("participantID", "currentTimeString", "timeDifference", "sceneName", "sceneNumber", participantID + "_VRHUD_Task_Time.csv");
+        addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "sceneNumber", participantID + "_VRHUD_Task_Time.csv");
         trialNumber = -1;
 
     }
@@ -65,8 +66,12 @@ public class logCSV : MonoBehaviour
         //Only record data if the space bar is pressed on the keyboard
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            timeDifference = (currentTime - pastTime).ToString("f6");
-            addRecord(participantID, currentTimeString, timeDifference, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
+            timeDifference = (currentTime - pastTime);
+            int min_diff = Mathf.FloorToInt(timeDifference/60);
+            int sec_diff = Mathf.FloorToInt(timeDifference%60);
+            timeDifferenceString = min_diff.ToString("00") + ":" + sec_diff.ToString("00");     //Save game time in seconds as a string
+           
+            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
             Debug.Log("Time: " + currentTimeString + "logged to CSV");
             pastTime = currentTime;
         }
