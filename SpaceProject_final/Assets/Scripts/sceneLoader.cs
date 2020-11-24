@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Diagnostics;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,8 +43,20 @@ public class sceneLoader : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.P))
         {
-            SceneManager.LoadScene("moonScene_Wrist", LoadSceneMode.Single);
+            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
+            /*
+            Process foo = new Process();
+            foo.StartInfo.FileName = @"C:\Windows\system32\cmd.exe";
+            string path = @"C:\Users\kdy7991\Desktop\VRHUD_Handtracking.exe";
+            foo.StartInfo.Arguments = "start " + path;
+            foo.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            foo.Start();
+            //foo.WaitForExit();
+            //int ExitCode = foo.ExitCode;
+            Application.Quit();
+            */
         }
 
     }
 }
+

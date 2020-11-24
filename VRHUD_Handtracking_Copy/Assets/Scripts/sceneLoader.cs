@@ -41,7 +41,7 @@ public class sceneLoader : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.P))
         {
-            SceneManager.LoadScene("moonScene_Wrist", LoadSceneMode.Single);
+            SceneManager.LoadScene("moonScene_PopUpWindow", LoadSceneMode.Single);
         }
 
     }

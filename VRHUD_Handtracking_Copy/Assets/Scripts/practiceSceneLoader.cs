@@ -11,7 +11,7 @@ public class practiceSceneLoader : MonoBehaviour
 
     void Awake()
     {   
-        scenes = new string[] {"PracticeScene_Gaze", "PracticeScene_Eyetracking", "PracticeScene_Voice", "PracticeScene_Gesture", "PracticeScene_Wrist"};
+        scenes = new string[] {"PracticeScene_PopUpWindow"};
 
         //Makes sure that all the data is together
         DontDestroyOnLoad(this.gameObject);
