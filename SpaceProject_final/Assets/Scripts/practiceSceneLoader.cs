@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,7 @@ public class practiceSceneLoader : MonoBehaviour
 
     void Awake()
     {   
-        scenes = new string[] {"PracticeScene_Gaze", "PracticeScene_Eyetracking", "PracticeScene_Voice", "PracticeScene_Gesture"};
+        scenes = new string[] {"PracticeScene_Gaze", "PracticeScene_Eyetracking", "PracticeScene_Voice", "PracticeScene_Gesture", "PracticeScene_PopUpWindow"};
 
         //Makes sure that all the data is together
         DontDestroyOnLoad(this.gameObject);
@@ -24,7 +25,14 @@ public class practiceSceneLoader : MonoBehaviour
         //Switch between Gaze, eyetracking, voice, gesture, and wrist practice scenes when LeftAlt is pressed
         if(Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            SceneManager.LoadScene(scenes[practiceSceneIndex], LoadSceneMode.Single);
+            if(scenes[practiceSceneIndex] == "PracticeScene_PopUpWindow")
+            {
+                Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/Practice_popUpWindow/VRHUD_Handtracking.exe");
+            }
+            
+            else{
+                SceneManager.LoadScene(scenes[practiceSceneIndex], LoadSceneMode.Single);
+            }
             practiceSceneIndex++;
         }
     }
