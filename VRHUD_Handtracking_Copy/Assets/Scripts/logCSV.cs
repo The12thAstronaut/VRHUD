@@ -64,20 +64,41 @@ public class logCSV : MonoBehaviour
                 }
             }
 
-            //Initialize data_participantID array's first and second element to null
+            //Initialize data array elements first and second elements to null so there are no index reading errors
             data_participantID.Add("null");
             data_participantID.Add("null");
+            data_currentTime.Add("null");
+            data_currentTime.Add("null");
+            data_trialNumber.Add("null");
+            data_trialNumber.Add("null");
 
             //Call the readCSV function and use the most recent CSV as an input
             readCSV(recentCSV);
-            //set participant id based on last element of data_participantID array
-            participantID = data_participantID[data_participantID.Count - 1];
 
-            //Figure out time offset based on most recent time
-            timeOffset = (float) Convert.ToDouble(data_currentTime[data_currentTime.Count - 1]);
+            //Set participant id based on last element of data_participantID array, if a valid value exists
+            if(data_participantID[1] != "null")
+            {
+                participantID = data_participantID[data_participantID.Count - 1];
+            }
+
+            //Figure out time offset based on most recent time and convert it to a float number in terms of seconds
+            if(data_currentTime[1] != "null")
+            {
+                //Split the minutes and seconds into two separate strings, with ":" as the delimiter
+                var timeStrings = data_currentTime[data_currentTime.Count - 1].Split(':');
+
+                //Convert strings to float values and store total time in seconds within the timeOffset
+                var minuteFloat = (float) Convert.ToDouble(timeStrings[0]);
+                var secondFloat = (float) Convert.ToDouble(timeStrings[1]);
+                timeOffset = minuteFloat * 60 + secondFloat;              
+            }
 
             //Create trial number offset
-            trialOffset = (int) Convert.ToDouble(data_trialNumber[data_trialNumber.Count - 1]);
+            if(data_trialNumber[1] != "null")
+            {
+                trialOffset = (int) Convert.ToDouble(data_trialNumber[data_trialNumber.Count - 1]);
+                trialOffset = trialOffset;
+            }
 
              //Read CSV file data, hardcoded option
             // string CSVPath = @"C:\Users\nmchenry1\Documents\GitHub\VRHUD\SpaceProject_final\12_VRHUD_Task_Time.csv";
