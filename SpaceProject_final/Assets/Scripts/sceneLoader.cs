@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,8 @@ public class sceneLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //Create a commands directory, if it doesn't already exist
+        Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + "/commands");
     }
 
     // Update is called once per frame

@@ -8,9 +8,14 @@ using UnityEngine.SceneManagement;
 public class sceneLoader : MonoBehaviour
 {
 
+    public string commandPath = "C:\Users\kdy7991\Desktop\Build_Files\Project_Final\commands\commands.csv";
+    public string prjFinalPath = "C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe";
+
     // Start is called before the first frame update
     void Start()
     {
+
+
 
     }
 
@@ -20,29 +25,29 @@ public class sceneLoader : MonoBehaviour
         //If the left side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            addSceneCommand("moonScene_Gaze", @"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\commands\commands.csv");
-            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
+            addSceneCommand("moonScene_Gaze", @commandPath);
+            Process.Start(@prjFinalPath);
         }
 
         //If the top side of the VIVE left controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.U))
         {
-            addSceneCommand("moonScene_Eyetracking", @"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\commands\commands.csv");
-            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
+            addSceneCommand("moonScene_Eyetracking", @commandPath);
+            Process.Start(@prjFinalPath);
         }
 
         //If the right side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.I))
         {
-            addSceneCommand("moonScene_Voice", @"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\commands\commands.csv");
-            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
+            addSceneCommand("moonScene_Voice", @commandPath);
+            Process.Start(@prjFinalPath);
         }
 
         //If the bottom side of the VIVE left controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.O))
         {
-            addSceneCommand("moonScene_Gesture", @"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\commands\commands.csv");
-            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
+            addSceneCommand("moonScene_Gesture", @commandPath);
+            Process.Start(@prjFinalPath);
         }
 
         if(Input.GetKeyDown(KeyCode.P))
