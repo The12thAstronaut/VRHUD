@@ -42,10 +42,13 @@ public class logCSV : MonoBehaviour
     private float timeOffset;
     private int trialOffset;
 
+    public bool newFileBool;
+
     void Awake()
     {   
         //Makes sure that all the data is together
         DontDestroyOnLoad(this.gameObject);
+        newFileBool = false;
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
@@ -150,10 +153,11 @@ public class logCSV : MonoBehaviour
             int sec_diff = Mathf.FloorToInt(timeDifference%60);
             timeDifferenceString = min_diff.ToString("00") + ":" + sec_diff.ToString("00");     //Save game time in seconds as a string
             //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
-                if(data_participantID[1] != participantID)
-                {
-                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
-                }
+            if(newFileBool)
+            {
+                addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
+                newFileBool = false;
+            }
             //Add data as a new line to csv file
             addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
             Debug.Log("Time: " + currentTimeString + "logged to CSV");
@@ -195,6 +199,9 @@ public class logCSV : MonoBehaviour
     {
         participantID = InputField.GetComponent<TMP_InputField>().text;
         Debug.Log("Value Changed");
+
+        //Set newFileBool to true if the input participant ID is changed
+        newFileBool = true;
 
         //Reset values since a new participant number has been entered
         pastTime = 0.0f;
