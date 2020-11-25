@@ -20,34 +20,34 @@ public class sceneLoader : MonoBehaviour
         //If the left side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            addSceneCommand("moonScene_Gaze", "commands/commands.csv");
+            //addSceneCommand("moonScene_Gaze", "commands/commands.csv");
             SceneManager.LoadScene("moonScene_Gaze", LoadSceneMode.Single);
         }
 
         //If the top side of the VIVE left controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.U))
         {
-            addSceneCommand("moonScene_Eyetracking", "commands/commands.csv");
+            //addSceneCommand("moonScene_Eyetracking", "commands/commands.csv");
             SceneManager.LoadScene("moonScene_Eyetracking", LoadSceneMode.Single);
         }
 
         //If the right side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.I))
         {
-            addSceneCommand("moonScene_Voice", "commands/commands.csv");
+            //addSceneCommand("moonScene_Voice", "commands/commands.csv");
             SceneManager.LoadScene("moonScene_Voice", LoadSceneMode.Single);
         }
 
         //If the bottom side of the VIVE left controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.O))
         {
-            addSceneCommand("moonScene_Gesture", "commands/commands.csv");
+            //addSceneCommand("moonScene_Gesture", "commands/commands.csv");
             SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
         }
 
         if(Input.GetKeyDown(KeyCode.P))
         {
-            addSceneCommand("moonScene_PopUpWindow", "commands/commands.csv");
+            //addSceneCommand("moonScene_PopUpWindow", "commands/commands.csv");
             Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
             /*
             Process foo = new Process();
