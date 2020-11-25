@@ -39,6 +39,9 @@ public class logCSV : MonoBehaviour
     public string[] csvFiles;
     public string recentCSV;
 
+    private float timeOffset;
+    private float trialOffset;
+
 
     void Awake()
     {   
@@ -47,10 +50,10 @@ public class logCSV : MonoBehaviour
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
-            csvFiles = System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory(), "*.csv");
+            csvFiles = System.IO.Directory.GetFiles("C:\Users\kdy7991\Desktop\Build_Files\Project_Final", "*.csv");
 
-            //Find most recent CSV file and save the string to the recentCSV variable
-            var files = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).GetFiles("*.csv");
+            //read the csv file from the other project
+            var files = new DirectoryInfo("C:\Users\kdy7991\Desktop\Build_Files\Project_Final").GetFiles("*.csv");
             DateTime lastModified = DateTime.MinValue;
             foreach (FileInfo file in files)
             {
@@ -67,8 +70,16 @@ public class logCSV : MonoBehaviour
 
             //Call the readCSV function and use the most recent CSV as an input
             readCSV(recentCSV);
+            //set participant id based on last element of data_participantID array
+            participantID = data_participantID[data_participantID.Count - 1];
 
-        //Read CSV file data, hardcoded option
+            //Figure out time offset based on most recent time
+            timeOffset = data_currentTime[data_currentTime.Count - 1];
+
+            //Create trial number offset
+            trialOffset = data_trialNumber[data_trialNumber.Count - 1];
+
+             //Read CSV file data, hardcoded option
             // string CSVPath = @"C:\Users\nmchenry1\Documents\GitHub\VRHUD\SpaceProject_final\12_VRHUD_Task_Time.csv";
             // readCSV(CSVPath);
     }
@@ -76,18 +87,20 @@ public class logCSV : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pastTime = 0.0f;
-        trialNumber = -1;
+        //Set the past time to the time offset from the CSV file data
+        pastTime = timeOffset;
+        //Don't need the -1 since we aren't using the start scene
+        trialNumber = trialOffset;
         // InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
 
         //Loads the scene specified in the commands.csv
-        loadCommandedScene("commands/commands.csv");
+        // loadCommandedScene("commands/commands.csv");
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentTime = Time.time;
+        currentTime = Time.time + timeOffset;
         int min = Mathf.FloorToInt(currentTime/60);
         int sec = Mathf.FloorToInt(currentTime%60);
         currentTimeString = min.ToString("00") + ":" + sec.ToString("00");     //Save game time in seconds as a string
@@ -116,10 +129,10 @@ public class logCSV : MonoBehaviour
             //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
                 if(data_participantID[1] != participantID)
                 {
-                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
+                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", "C:\Users\kdy7991\Desktop\Build_Files\Project_Final" + participantID + "_VRHUD_Task_Time.csv");
                 }
             //Add data as a new line to csv file
-            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
+            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, "C:\Users\kdy7991\Desktop\Build_Files\Project_Final" + participantID + "_VRHUD_Task_Time.csv");
             Debug.Log("Time: " + currentTimeString + "logged to CSV");
             pastTime = currentTime;
         }
