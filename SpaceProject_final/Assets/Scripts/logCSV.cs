@@ -28,10 +28,43 @@ public class logCSV : MonoBehaviour
     public string trialNumberRef;
     public TMP_InputField InputField; 
 
+    public List<string> dataColumn1;
+    public List<string> dataColumn2;
+    public List<string> dataColumn3;
+    public List<string> dataColumn4;
+    public List<string> dataColumn5;
+
+    public string[] csvFiles;
+    public string recentCSV;
+
+
     void Awake()
     {   
         //Makes sure that all the data is together
         DontDestroyOnLoad(this.gameObject);
+
+        //Read most recent CSV file data
+            //Search for CSV files within project directory
+            csvFiles = System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory(), "*.csv");
+
+            //Find most recent CSV file and save the string to the recentCSV variable
+            var files = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).GetFiles("*.csv");
+            DateTime lastModified = DateTime.MinValue;
+            foreach (FileInfo file in files)
+            {
+                if (file.LastWriteTime > lastModified)
+                {
+                    lastModified = file.LastWriteTime;
+                    recentCSV = file.Name;
+                }
+            }
+
+            //Call the readCSV function and use the most recent CSV as an input
+            readCSV(recentCSV);
+
+        //Read CSV file data, hardcoded option
+            // string CSVPath = @"C:\Users\nmchenry1\Documents\GitHub\VRHUD\SpaceProject_final\12_VRHUD_Task_Time.csv";
+            // readCSV(CSVPath);
     }
 
     // Start is called before the first frame update
@@ -116,13 +149,37 @@ public class logCSV : MonoBehaviour
     }
 
     //Function that reads CSV file
-    public void readCSV()
+    public void readCSV(string csvPath)
     {
-        //Make string path to CSV file
-        string CSVPath;
-        //Read last line from CSV file
+        //Read in CSV file specified by csvPath input variable
+        using(var reader = new StreamReader(csvPath))
+        {
+            //Create a different string list for each CSV column
+            List<string> listA = new List<string>();
+            List<string> listB = new List<string>();
+            List<string> listC = new List<string>();
+            List<string> listD = new List<string>();
+            List<string> listE = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+
+                listA.Add(values[0]);
+                listB.Add(values[1]);
+                listC.Add(values[2]);
+                listD.Add(values[3]);
+                listE.Add(values[4]);
+
+                dataColumn1 = listA;
+                dataColumn2 = listB;
+                dataColumn3 = listC;
+                dataColumn4 = listD;
+                dataColumn5 = listE;
+            }
+        }
+
         //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
         //Else do nothing
-        
     }
 }
