@@ -30,7 +30,9 @@ public class sceneLoader : MonoBehaviour
         //If the right side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("moonScene_Voice", LoadSceneMode.Single);
+            // Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
+            // :(
+            
         }
 
         //If the bottom side of the VIVE left controller trackpad is pressed, load scene
@@ -43,6 +45,8 @@ public class sceneLoader : MonoBehaviour
         {
             SceneManager.LoadScene("moonScene_PopUpWindow", LoadSceneMode.Single);
         }
+
+
 
     }
 }

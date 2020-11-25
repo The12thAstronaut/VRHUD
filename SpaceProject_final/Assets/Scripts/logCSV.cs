@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class logCSV : MonoBehaviour
@@ -24,6 +26,7 @@ public class logCSV : MonoBehaviour
 
     public int trialNumber;
     public string trialNumberRef;
+    public TMP_InputField InputField; 
 
     void Awake()
     {   
@@ -38,7 +41,7 @@ public class logCSV : MonoBehaviour
         //Add a header line to the csv file
         addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "sceneNumber", participantID + "_VRHUD_Task_Time.csv");
         trialNumber = -1;
-
+        InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
     }
 
     // Update is called once per frame
@@ -105,5 +108,21 @@ public class logCSV : MonoBehaviour
         {
             throw new ApplicationException("This program did an oopsie :", ex);
         }
+    }
+    public void ValueChangeCheck()
+    {
+        participantID = InputField.GetComponent<TMP_InputField>().text;
+        Debug.Log("Value Changed");
+    }
+
+    //Function that reads CSV file
+    public void readCSV()
+    {
+        //Make string path to CSV file
+        string CSVPath;
+        //Read last line from CSV file
+        //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
+        //Else do nothing
+        
     }
 }
