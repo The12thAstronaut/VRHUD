@@ -13,6 +13,8 @@ using UnityEngine.SceneManagement;
 public class logCSV : MonoBehaviour
 {
     private string currentTimeString;
+    private List<string> data_sceneCommand;
+
     public float timeDifference;
     public string timeDifferenceString;
 
@@ -77,6 +79,9 @@ public class logCSV : MonoBehaviour
         pastTime = 0.0f;
         trialNumber = -1;
         InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
+
+        //Loads the scene specified in the commands.csv
+        loadCommandedScene("commands/commands.csv");
     }
 
     // Update is called once per frame
@@ -149,7 +154,7 @@ public class logCSV : MonoBehaviour
             throw new ApplicationException("This program did an oopsie :", ex);
         }
     }
-    
+
     public void ValueChangeCheck()
     {
         participantID = InputField.GetComponent<TMP_InputField>().text;
@@ -186,8 +191,37 @@ public class logCSV : MonoBehaviour
                 data_trialNumber = listE;
             }
         }
+    }
 
-        //Work In Progress:
+    //Function that reads the "commands.csv" CSV file and loads the last scene listed
+    public void loadCommandedScene(string commandsPath)
+    {
+        //Read in CSV file specified by csvPath input variable
+        using(var reader = new StreamReader(commandsPath))
+        {
+            //Create a different string list for each CSV column
+            List<string> listTemp = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+                listTemp.Add(values[0]);
+                data_sceneCommand = listTemp;
+            }
+        }
+
+        //Save last command CSV array element to string
+        string lastElement = data_sceneCommand[data_sceneCommand.Count - 1];
+
+        //Check to see if the command has been executed or not yet. If not, load the scene and add the string "Finished"
+            if(lastElement != "Finished")
+            {
+                addFinishedCommand("commands/commands.csv");
+                //Loads the scene stored in the second to last element of the data_sceneCommmand list
+                Debug.Log("Loading " + lastElement + "...");
+                SceneManager.LoadScene(lastElement, LoadSceneMode.Single);
+            }
+
         //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
             // if(data_sceneName[data_sceneName.Count - 1] == "moonScene_Eyetracking")
             // {
@@ -195,4 +229,23 @@ public class logCSV : MonoBehaviour
             // }
         //Else do nothing
     }
+
+    public static void addFinishedCommand(string filepath)
+    {
+        try
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath, true))
+            {
+                //Save data as a new line in CSV file
+                file.WriteLine("Finished" + ",");
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new ApplicationException("This program did an oopsie :", ex);
+        }
+    }
+
+    //Work In Progress:
+    //Read the participant ID and set it when the scene is reopened
 }
