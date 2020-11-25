@@ -40,7 +40,7 @@ public class logCSV : MonoBehaviour
     public string recentCSV;
 
     private float timeOffset;
-    private float trialOffset;
+    private int trialOffset;
 
 
     void Awake()
@@ -50,10 +50,10 @@ public class logCSV : MonoBehaviour
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
-            csvFiles = System.IO.Directory.GetFiles("C:\Users\kdy7991\Desktop\Build_Files\Project_Final", "*.csv");
+            csvFiles = System.IO.Directory.GetFiles(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final", "*.csv");
 
             //read the csv file from the other project
-            var files = new DirectoryInfo("C:\Users\kdy7991\Desktop\Build_Files\Project_Final").GetFiles("*.csv");
+            var files = new DirectoryInfo(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final").GetFiles("*.csv");
             DateTime lastModified = DateTime.MinValue;
             foreach (FileInfo file in files)
             {
@@ -74,10 +74,10 @@ public class logCSV : MonoBehaviour
             participantID = data_participantID[data_participantID.Count - 1];
 
             //Figure out time offset based on most recent time
-            timeOffset = data_currentTime[data_currentTime.Count - 1];
+            timeOffset = (float) Convert.ToDouble(data_currentTime[data_currentTime.Count - 1]);
 
             //Create trial number offset
-            trialOffset = data_trialNumber[data_trialNumber.Count - 1];
+            trialOffset = (int) Convert.ToDouble(data_trialNumber[data_trialNumber.Count - 1]);
 
              //Read CSV file data, hardcoded option
             // string CSVPath = @"C:\Users\nmchenry1\Documents\GitHub\VRHUD\SpaceProject_final\12_VRHUD_Task_Time.csv";
@@ -129,10 +129,10 @@ public class logCSV : MonoBehaviour
             //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
                 if(data_participantID[1] != participantID)
                 {
-                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", "C:\Users\kdy7991\Desktop\Build_Files\Project_Final" + participantID + "_VRHUD_Task_Time.csv");
+                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/" + participantID + "_VRHUD_Task_Time.csv");
                 }
             //Add data as a new line to csv file
-            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, "C:\Users\kdy7991\Desktop\Build_Files\Project_Final" + participantID + "_VRHUD_Task_Time.csv");
+            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/" + participantID + "_VRHUD_Task_Time.csv");
             Debug.Log("Time: " + currentTimeString + "logged to CSV");
             pastTime = currentTime;
         }
@@ -262,3 +262,13 @@ public class logCSV : MonoBehaviour
     //Work In Progress:
     //Read the participant ID and set it when the scene is reopened
 }
+
+//why is life so difficult lol
+
+/*
+how to be cool
+A) cool sunglasses emoji
+B)
+
+yup that's an emoji pun
+*/

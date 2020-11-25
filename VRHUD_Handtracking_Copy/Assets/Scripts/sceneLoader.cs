@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 public class sceneLoader : MonoBehaviour
 {
 
-    public string commandPath = "C:\Users\kdy7991\Desktop\Build_Files\Project_Final\commands\commands.csv";
-    public string prjFinalPath = "C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe";
+    public string commandPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/commands/commands.csv";
+    public string prjFinalPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
 
     // Start is called before the first frame update
     void Start()

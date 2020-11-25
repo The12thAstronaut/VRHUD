@@ -39,6 +39,8 @@ public class logCSV : MonoBehaviour
     public string[] csvFiles;
     public string recentCSV;
 
+    private float timeOffset;
+    private int trialOffset;
 
     void Awake()
     {   
@@ -61,12 +63,35 @@ public class logCSV : MonoBehaviour
                 }
             }
 
-            //Initialize data_participantID array's first and second element to null
+            //Initialize data array elements first and second elements to null so there are no index reading errors
             data_participantID.Add("null");
             data_participantID.Add("null");
+            data_currentTime.Add("null");
+            data_currentTime.Add("null");
+            data_trialNumber.Add("null");
+            data_trialNumber.Add("null");
 
             //Call the readCSV function and use the most recent CSV as an input
             readCSV(recentCSV);
+
+            //Set participant id based on last element of data_participantID array, if a valid value exists
+            if(data_participantID[1] != "null")
+            {
+                participantID = data_participantID[data_participantID.Count - 1];
+            }
+
+            //Figure out time offset based on most recent time and convert it to a float number
+            if(data_currentTime[1] != "null")
+            {
+                timeOffset = (float) Convert.ToDouble(data_currentTime[data_currentTime.Count - 1]);
+                
+            }
+
+            //Create trial number offset
+            if(data_trialNumber[1] != "null")
+            {
+                trialOffset = (int) Convert.ToDouble(data_trialNumber[data_trialNumber.Count - 1]);
+            }
 
         //Read CSV file data, hardcoded option
             // string CSVPath = @"C:\Users\nmchenry1\Documents\GitHub\VRHUD\SpaceProject_final\12_VRHUD_Task_Time.csv";
@@ -76,8 +101,13 @@ public class logCSV : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pastTime = 0.0f;
-        trialNumber = -1;
+        //By default, import the data offset values from the CSV file
+        //      However, set these offset to 0 if the participant value changes
+              //Set the past time to the time offset from the CSV file data
+            pastTime = timeOffset;
+            //Don't need the -1 since we aren't using the start scene
+            trialNumber = trialOffset;
+       
         InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
 
         //Loads the scene specified in the commands.csv
@@ -87,7 +117,7 @@ public class logCSV : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime = Time.time;
+        currentTime = Time.time + timeOffset;
         int min = Mathf.FloorToInt(currentTime/60);
         int sec = Mathf.FloorToInt(currentTime%60);
         currentTimeString = min.ToString("00") + ":" + sec.ToString("00");     //Save game time in seconds as a string
@@ -159,6 +189,11 @@ public class logCSV : MonoBehaviour
     {
         participantID = InputField.GetComponent<TMP_InputField>().text;
         Debug.Log("Value Changed");
+
+        //Reset values since a new participant number has been entered
+        pastTime = 0.0f;
+        trialNumber = -1;
+        timeOffset = 0;
     }
 
     //Function that reads CSV file
