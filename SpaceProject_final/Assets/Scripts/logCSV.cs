@@ -149,6 +149,7 @@ public class logCSV : MonoBehaviour
             throw new ApplicationException("This program did an oopsie :", ex);
         }
     }
+    
     public void ValueChangeCheck()
     {
         participantID = InputField.GetComponent<TMP_InputField>().text;

@@ -18,27 +18,29 @@ public class sceneLoader : MonoBehaviour
         //If the left side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            SceneManager.LoadScene("moonScene_Gaze", LoadSceneMode.Single);
+            addSceneCommand("moonScene_Gaze", "commands/commands.csv");
+            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
         }
 
         //If the top side of the VIVE left controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.U))
         {
-            SceneManager.LoadScene("moonScene_Eyetracking", LoadSceneMode.Single);
+            addSceneCommand("moonScene_Eyetracking", "commands/commands.csv");
+            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
         }
 
         //If the right side of the VIVE left/right controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.I))
         {
-            // Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
-            // :(
-            
+            addSceneCommand("moonScene_Voice", "commands/commands.csv");
+            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
         }
 
         //If the bottom side of the VIVE left controller trackpad is pressed, load scene
         if(Input.GetKeyDown(KeyCode.O))
         {
-            SceneManager.LoadScene("moonScene_Gesture", LoadSceneMode.Single);
+            addSceneCommand("moonScene_Gesture", "commands/commands.csv");
+            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\VRHUDProject_Final.exe");
         }
 
         if(Input.GetKeyDown(KeyCode.P))
@@ -48,5 +50,21 @@ public class sceneLoader : MonoBehaviour
 
 
 
+    }
+
+    public static void addSceneCommand(string sceneNameString, string filepath)
+    {
+        try
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath, true))
+            {
+                //Save data as a new line in CSV file
+                file.WriteLine(sceneNameString + ",");
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new ApplicationException("This program did an oopsie :", ex);
+        }
     }
 }
