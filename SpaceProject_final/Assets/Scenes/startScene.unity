@@ -1087,7 +1087,7 @@ MonoBehaviour:
   timeDifferenceString: 
   currentTime: 0
   pastTime: 0
-  participantID: 12
+  participantID: 
   currentScene:
     m_Handle: 0
   sceneName: 
@@ -1095,6 +1095,14 @@ MonoBehaviour:
   trialNumber: 0
   trialNumberRef: 
   InputField: {fileID: 1131172307}
+  data_participantID: []
+  data_currentTime: []
+  data_timeDifference: []
+  data_sceneName: []
+  data_trialNumber: []
+  csvFiles: []
+  recentCSV: 
+  newFileBool: 0
 --- !u!4 &1396304874
 Transform:
   m_ObjectHideFlags: 0
