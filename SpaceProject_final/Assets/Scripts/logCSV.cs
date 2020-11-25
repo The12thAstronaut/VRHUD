@@ -28,11 +28,11 @@ public class logCSV : MonoBehaviour
     public string trialNumberRef;
     public TMP_InputField InputField; 
 
-    public List<string> dataColumn1;
-    public List<string> dataColumn2;
-    public List<string> dataColumn3;
-    public List<string> dataColumn4;
-    public List<string> dataColumn5;
+    public List<string> data_participantID;
+    public List<string> data_currentTime;
+    public List<string> data_timeDifference;
+    public List<string> data_sceneName;
+    public List<string> data_trialNumber;
 
     public string[] csvFiles;
     public string recentCSV;
@@ -59,6 +59,10 @@ public class logCSV : MonoBehaviour
                 }
             }
 
+            //Initialize data_participantID array's first and second element to null
+            data_participantID.Add("null");
+            data_participantID.Add("null");
+
             //Call the readCSV function and use the most recent CSV as an input
             readCSV(recentCSV);
 
@@ -71,8 +75,6 @@ public class logCSV : MonoBehaviour
     void Start()
     {
         pastTime = 0.0f;
-        //Add a header line to the csv file
-        addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "sceneNumber", participantID + "_VRHUD_Task_Time.csv");
         trialNumber = -1;
         InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
     }
@@ -106,7 +108,12 @@ public class logCSV : MonoBehaviour
             int min_diff = Mathf.FloorToInt(timeDifference/60);
             int sec_diff = Mathf.FloorToInt(timeDifference%60);
             timeDifferenceString = min_diff.ToString("00") + ":" + sec_diff.ToString("00");     //Save game time in seconds as a string
-           
+            //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
+                if(data_participantID[1] != participantID)
+                {
+                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
+                }
+            //Add data as a new line to csv file
             addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
             Debug.Log("Time: " + currentTimeString + "logged to CSV");
             pastTime = currentTime;
@@ -171,15 +178,20 @@ public class logCSV : MonoBehaviour
                 listD.Add(values[3]);
                 listE.Add(values[4]);
 
-                dataColumn1 = listA;
-                dataColumn2 = listB;
-                dataColumn3 = listC;
-                dataColumn4 = listD;
-                dataColumn5 = listE;
+                data_participantID = listA;
+                data_currentTime = listB;
+                data_timeDifference = listC;
+                data_sceneName = listD;
+                data_trialNumber = listE;
             }
         }
 
+        //Work In Progress:
         //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
+            // if(data_sceneName[data_sceneName.Count - 1] == "moonScene_Eyetracking")
+            // {
+            //     Debug.Log("Loading Popup Scene");
+            // }
         //Else do nothing
     }
 }
