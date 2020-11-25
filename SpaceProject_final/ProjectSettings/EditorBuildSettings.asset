@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/PracticeScene_Eyetracking.unity
     guid: 2f2023cecc459744fbc9f8fb01dac80b
   - enabled: 1
-    path: Assets/Scenes/PracticeScene_Gesture.unity
-    guid: f9d5d8c8489b1f94f8275c38efa9be38
-  - enabled: 1
     path: Assets/Scenes/PracticeScene_Voice.unity
     guid: 6331c38791bf9a348b44f42a50123132
+  - enabled: 1
+    path: Assets/Scenes/PracticeScene_Gesture.unity
+    guid: f9d5d8c8489b1f94f8275c38efa9be38
   - enabled: 0
     path: Assets/Scenes/PracticeScene_Wrist.unity
     guid: b244b2bfc601ca745b89a78df8203047
@@ -30,9 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/moonScene_Eyetracking.unity
     guid: e19fc225ca41d3b439c8306c5b94b54a
   - enabled: 1
-    path: Assets/Scenes/moonScene_Gesture.unity
-    guid: 40aa60ccbaa975d4e8c5b1fa704f9e4c
-  - enabled: 1
     path: Assets/Scenes/moonScene_Voice.unity
     guid: 19a572044fa186f43bd2ef4132a6a8d2
+  - enabled: 1
+    path: Assets/Scenes/moonScene_Gesture.unity
+    guid: 40aa60ccbaa975d4e8c5b1fa704f9e4c
   m_configObjects: {}

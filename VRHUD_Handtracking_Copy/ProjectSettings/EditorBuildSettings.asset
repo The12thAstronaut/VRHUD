@@ -20,10 +20,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/moonScene_Voice.unity
     guid: 19a572044fa186f43bd2ef4132a6a8d2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/startScene.unity
     guid: 606b24c1bb4831e47bd4a6377469f812
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PracticeScene_PopUpWindow.unity
     guid: b244b2bfc601ca745b89a78df8203047
   - enabled: 1
