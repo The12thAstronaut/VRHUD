@@ -57,6 +57,12 @@ public class sceneLoader : MonoBehaviour
             */
         }
 
+        //If the bottom side of the VIVE left controller trackpad is pressed, load scene
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
     }
 }
 
