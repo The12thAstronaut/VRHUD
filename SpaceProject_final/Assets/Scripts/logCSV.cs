@@ -28,7 +28,10 @@ public class logCSV : MonoBehaviour
 
     public int trialNumber;
     public string trialNumberRef;
-    public TMP_InputField InputField; 
+    public TMP_InputField InputField;
+    public TextMeshProUGUI debugText; 
+    public GameObject debugTextCanvas;
+    private bool debugTextBool;
 
     public List<string> data_participantID;
     public List<string> data_currentTime;
@@ -48,9 +51,10 @@ public class logCSV : MonoBehaviour
     void Awake()
     {   
         
-        //Makes sure that all the data is together
+        //Makes sure that all the data is together and doesn't get destroyed between scenes
         DontDestroyOnLoad(this.gameObject);
-        newFileBool = false;
+        DontDestroyOnLoad(debugTextCanvas);
+
 
         //Set path to commands csv
         CommandsPath = "commands/commands.csv";
@@ -65,6 +69,10 @@ public class logCSV : MonoBehaviour
             //Find most recent CSV file and save the string to the recentCSV variable
             var files = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).GetFiles("*.csv");
             DateTime lastModified = DateTime.MinValue;
+            
+            //Initialize recentCSV
+            recentCSV = "null";
+            
             foreach (FileInfo file in files)
             {
                 if (file.LastWriteTime > lastModified)
@@ -74,6 +82,9 @@ public class logCSV : MonoBehaviour
                 }
             }
 
+            //Display the value of recentCSV on the screen
+            debugText.text = "recentCSV = <" + recentCSV + ">";
+
             //Initialize data array elements first and second elements to null so there are no index reading errors
             data_participantID.Add("null");
             data_participantID.Add("null");
@@ -82,8 +93,11 @@ public class logCSV : MonoBehaviour
             data_trialNumber.Add("null");
             data_trialNumber.Add("null");
 
-            //Call the readCSV function and use the most recent CSV as an input
+            //Call the readCSV function and use the most recent CSV as an input, if it exists
+            if(recentCSV != "null")
+            {
             readCSV(recentCSV);
+            }
 
             //Set participant id based on last element of data_participantID array, if a valid value exists
             if(data_participantID[1] != "null")
@@ -119,11 +133,18 @@ public class logCSV : MonoBehaviour
     {
         //By default, import the data offset values from the CSV file
         //      However, set these offset to 0 if the participant value changes
-              //Set the past time to the time offset from the CSV file data
-            pastTime = timeOffset;
-            //Don't need the -1 since we aren't using the start scene
-            trialNumber = trialOffset;
-       
+        //Set the past time to the time offset from the CSV file data
+        pastTime = timeOffset;
+        //Don't need the -1 since we aren't using the start scene
+        trialNumber = trialOffset;
+
+        //Hide the debug text on start
+        debugTextBool = false;
+        debugText.gameObject.SetActive(debugTextBool);
+
+        //Initialize the newFileBool to false
+        newFileBool = false;
+
         InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
     }
 
@@ -148,6 +169,13 @@ public class logCSV : MonoBehaviour
 
         //Get trial number from the sceneLoader class and convert it to a string
         trialNumberRef = trialNumber.ToString();
+
+        //If the D key is pressed, toggle the debug text
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            debugTextBool = !debugTextBool;
+            debugText.gameObject.SetActive(debugTextBool);
+        }
 
         //Only record data if the space bar is pressed on the keyboard
         if(Input.GetKeyDown(KeyCode.Space))
