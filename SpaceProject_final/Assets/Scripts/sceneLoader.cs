@@ -51,6 +51,8 @@ public class sceneLoader : MonoBehaviour
         {
             //addSceneCommand("moonScene_PopUpWindow", "commands/commands.csv");
             Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
+            // Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
+            Application.Quit();
             /*
             Process foo = new Process();
             foo.StartInfo.FileName = @"C:\Windows\system32\cmd.exe";
