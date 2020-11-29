@@ -42,6 +42,8 @@ public class logCSV : MonoBehaviour
     private float timeOffset;
     private int trialOffset;
 
+    public TextMeshProUGUI debugID;
+    private bool debugIDBool;
 
     void Awake()
     {   
@@ -77,8 +79,10 @@ public class logCSV : MonoBehaviour
 
             //Set participant id based on last element of data_participantID array, if a valid value exists
             if(data_participantID[1] != "null")
-            {
+            {   
                 participantID = data_participantID[data_participantID.Count - 1];
+                //Display the participant ID on screen
+                debugID.text = participantID;
             }
 
             //Figure out time offset based on most recent time and convert it to a float number in terms of seconds
@@ -108,6 +112,10 @@ public class logCSV : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Hide the debug ID on start
+        debugIDBool = false;
+        debugID.gameObject.SetActive(debugIDBool);
+
         //Set the past time to the time offset from the CSV file data
         pastTime = timeOffset;
         //Don't need the -1 since we aren't using the start scene
@@ -126,6 +134,13 @@ public class logCSV : MonoBehaviour
         int sec = Mathf.FloorToInt(currentTime%60);
         currentTimeString = min.ToString("00") + ":" + sec.ToString("00");     //Save game time in seconds as a string
        
+        //If the D key is pressed, toggle the debug ID
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            debugIDBool = !debugIDBool;
+            debugID.gameObject.SetActive(debugIDBool);
+        }
+        
         //Set currentScene to the active scene
         currentScene = SceneManager.GetActiveScene();
          // Retrieve the name of this scene
@@ -199,8 +214,8 @@ public class logCSV : MonoBehaviour
     public void readCSV(string csvPath)
     {
         //Read in CSV file specified by csvPath input variable
-        using(var reader = new StreamReader(csvPath))
-        {
+        using(var reader = new StreamReader(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\" + csvPath))
+        {                                                       
             //Create a different string list for each CSV column
             List<string> listA = new List<string>();
             List<string> listB = new List<string>();
