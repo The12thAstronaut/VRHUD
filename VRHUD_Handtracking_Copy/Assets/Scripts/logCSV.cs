@@ -44,19 +44,28 @@ public class logCSV : MonoBehaviour
 
     public TextMeshProUGUI debugID;
     private bool debugIDBool;
+    public string buildFolder;
 
     void Awake()
     {   
         //Makes sure that all the data is together
         DontDestroyOnLoad(this.gameObject);
 
+        //Initialize build folder file path
+        buildFolder = "C:\Users\kdy7991\Desktop\Build_Files\Project_Final";
+        // buildFolder = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final";
+
         //Read most recent CSV file data
             //Search for CSV files within project directory
-            csvFiles = System.IO.Directory.GetFiles(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final", "*.csv");
+            csvFiles = System.IO.Directory.GetFiles(@buildFolder, "*.csv");
 
             //read the csv file from the other project
-            var files = new DirectoryInfo(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final").GetFiles("*.csv");
+            var files = new DirectoryInfo(@buildFolder).GetFiles("*.csv");
             DateTime lastModified = DateTime.MinValue;
+            
+            //Initialize recentCSV
+            recentCSV = "null";
+            
             foreach (FileInfo file in files)
             {
                 if (file.LastWriteTime > lastModified)
@@ -75,7 +84,10 @@ public class logCSV : MonoBehaviour
             data_trialNumber.Add("null");
 
             //Call the readCSV function and use the most recent CSV as an input
+            if(recentCSV != "null")
+            {
             readCSV(recentCSV);
+            }
 
             //Set participant id based on last element of data_participantID array, if a valid value exists
             if(data_participantID[1] != "null")
@@ -165,10 +177,10 @@ public class logCSV : MonoBehaviour
             //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
                 if(data_participantID[1] != participantID)
                 {
-                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/" + participantID + "_VRHUD_Task_Time.csv");
+                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", buildFolder + participantID + "_VRHUD_Task_Time.csv");
                 }
             //Add data as a new line to csv file
-            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/" + participantID + "_VRHUD_Task_Time.csv");
+            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, buildFolder + participantID + "_VRHUD_Task_Time.csv");
             Debug.Log("Time: " + currentTimeString + "logged to CSV");
             pastTime = currentTime;
         }
@@ -214,7 +226,7 @@ public class logCSV : MonoBehaviour
     public void readCSV(string csvPath)
     {
         //Read in CSV file specified by csvPath input variable
-        using(var reader = new StreamReader(@"C:\Users\kdy7991\Desktop\Build_Files\Project_Final\" + csvPath))
+        using(var reader = new StreamReader(@buildFolder + "/" + csvPath))
         {                                                       
             //Create a different string list for each CSV column
             List<string> listA = new List<string>();
