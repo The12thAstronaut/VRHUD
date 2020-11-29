@@ -43,12 +43,20 @@ public class logCSV : MonoBehaviour
     private int trialOffset;
 
     public bool newFileBool;
+    public string CommandsPath;
 
     void Awake()
     {   
+        
         //Makes sure that all the data is together
         DontDestroyOnLoad(this.gameObject);
         newFileBool = false;
+
+        //Set path to commands csv
+        CommandsPath = "commands/commands.csv";
+        
+        //Loads the scene specified in the commands.csv
+        loadCommandedScene(CommandsPath);
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
@@ -101,9 +109,8 @@ public class logCSV : MonoBehaviour
                 trialOffset = (int) Convert.ToDouble(data_trialNumber[data_trialNumber.Count - 1]);
                 trialOffset = trialOffset - 1;    //Decrement trialOffset by 1 to account for startScene
             }
-
         //Read CSV file data, hardcoded option
-            // string CSVPath = @"C:\Users\nmchenry1\Documents\GitHub\VRHUD\SpaceProject_final\12_VRHUD_Task_Time.csv";
+            // string CSVPath = @"C:/Users/nmchenry1/Documents/GitHub/VRHUD/SpaceProject_final/12_VRHUD_Task_Time.csv";
             // readCSV(CSVPath);
     }
 
@@ -118,9 +125,6 @@ public class logCSV : MonoBehaviour
             trialNumber = trialOffset;
        
         InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
-
-        //Loads the scene specified in the commands.csv
-        loadCommandedScene("commands/commands.csv");
     }
 
     // Update is called once per frame
@@ -264,7 +268,7 @@ public class logCSV : MonoBehaviour
         //Check to see if the command has been executed or not yet. If not, load the scene and add the string "Finished"
             if(lastElement != "Finished")
             {
-                addFinishedCommand("commands/commands.csv");
+                addFinishedCommand(CommandsPath);
                 //Loads the scene stored in the second to last element of the data_sceneCommmand list
                 Debug.Log("Loading " + lastElement + "...");
                 SceneManager.LoadScene(lastElement, LoadSceneMode.Single);
