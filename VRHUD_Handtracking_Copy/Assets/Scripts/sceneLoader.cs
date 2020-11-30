@@ -8,16 +8,16 @@ using UnityEngine.SceneManagement;
 public class sceneLoader : MonoBehaviour
 {
 
-    // public string commandPath = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final/commands/commands.csv";
-    public string commandPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/commands/commands.csv";
-    // public string prjFinalPath = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
-    public string prjFinalPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
+    public string commandPath;
+    public string prjFinalPath;
 
     // Start is called before the first frame update
     void Start()
     {
-
-
+        // commandPath = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final/commands/commands.csv";
+        commandPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/commands/commands.csv";
+        // prjFinalPath = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
+        prjFinalPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
 
     }
 
@@ -25,7 +25,7 @@ public class sceneLoader : MonoBehaviour
     void Update()
     {
         //If the left side of the VIVE left/right controller trackpad is pressed, load scene
-        if(Input.GetKeyDown(KeyCode.Y))
+        if(Input.GetKeyDown(KeyCode.Y)) 
         {
             addSceneCommand("moonScene_Gaze", @commandPath);
             Process.Start(@prjFinalPath);
