@@ -52,7 +52,7 @@ public class logCSV : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         //Initialize build folder file path
-        buildFolder = "C:\Users\kdy7991\Desktop\Build_Files\Project_Final";
+        buildFolder = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/";
         // buildFolder = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final";
 
         //Read most recent CSV file data

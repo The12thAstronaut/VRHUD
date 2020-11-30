@@ -59,6 +59,13 @@ public class sceneLoader : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             SceneManager.LoadScene("moonScene_PopUpWindow", LoadSceneMode.Single);
+            Application.Quit();
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            SceneManager.LoadScene("PracticeScene_PopUpWindow", LoadSceneMode.Single);
+            Application.Quit();
         }
 
         //Escape Button

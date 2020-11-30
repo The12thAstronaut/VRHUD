@@ -50,7 +50,7 @@ public class sceneLoader : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             //addSceneCommand("moonScene_PopUpWindow", "commands/commands.csv");
-            Process.Start(@"C:\Users\kdy7991\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
+            Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/PopUp_Window/VRHUD_Handtracking.exe");
             // Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
             Application.Quit();
             /*
@@ -64,6 +64,13 @@ public class sceneLoader : MonoBehaviour
             //int ExitCode = foo.ExitCode;
             Application.Quit();
             */
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/Practice_popUpWindow/VRHUD_Handtracking.exe");
+            Application.Quit();
+            
         }
 
         //If the bottom side of the VIVE left controller trackpad is pressed, load scene
