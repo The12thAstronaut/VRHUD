@@ -559,7 +559,11 @@ public class logCSV : MonoBehaviour
         {
         readCSV2(@sFilePath);
         }
-
+        if(sceneLoadIndex == 15)
+        {
+            Application.Quit();
+            print("The studey is ended");
+        }
         string sceneToLoad = data_sceneOrder[sceneLoadIndex];
         print("The next scene to load is" + sceneToLoad);
         sceneLoadIndex++;
