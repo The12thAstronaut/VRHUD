@@ -83,10 +83,10 @@ public class logCSV : MonoBehaviour
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
-            csvFiles = System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory(), "*.csv");
+            csvFiles = System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory(), "*Time.csv");
 
             //Find most recent CSV file and save the string to the recentCSV variable
-            var files = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).GetFiles("*.csv");
+            var files = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).GetFiles("*Time.csv");
             DateTime lastModified = DateTime.MinValue;
             
             //Initialize recentCSV
