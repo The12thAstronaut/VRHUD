@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,7 @@ public class logCSV : MonoBehaviour
     public List<string> data_timeDifference;
     public List<string> data_sceneName;
     public List<string> data_trialNumber;
+    public List<string> data_sceneOrder;
 
     public string[] csvFiles;
     public string recentCSV;
@@ -59,6 +61,9 @@ public class logCSV : MonoBehaviour
     private int sNameCounter;
 
     public string[] sceneArray;
+    public string sceneFilePath;
+
+    private int sceneLoadIndex;
 
     void Awake()
     {   
@@ -67,6 +72,8 @@ public class logCSV : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         DontDestroyOnLoad(debugTextCanvas);
 
+        sceneFilePath = "null";
+        sceneLoadIndex = 0;
 
         //Set path to commands csv
         CommandsPath = "commands/commands.csv";
@@ -106,6 +113,8 @@ public class logCSV : MonoBehaviour
             data_trialNumber.Add("null");
             data_sceneName.Add("null");
             data_sceneName.Add("null");
+            data_sceneOrder.Add("null");
+            data_sceneOrder.Add("null");
 
             //Call the readCSV function and use the most recent CSV as an input, if it exists
             if(recentCSV != "null")
@@ -227,8 +236,15 @@ public class logCSV : MonoBehaviour
             }
             //Add data as a new line to csv file
             addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
-            Debug.Log(timeDifferenceString + " " + sceneName + " logged to CSV");
+            print(timeDifferenceString + " " + sceneName + " logged to CSV");
             pastTime = currentTime;
+        }
+
+        //Press tab to load the next Moon Scene based on the randomized scene order
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            //Call function Read participant CSV and load next scene
+            loadSceneCSV(sceneFilePath);
         }
 
 
@@ -266,7 +282,7 @@ public class logCSV : MonoBehaviour
     public void ValueChangeCheck()
     {
         participantID = InputField.GetComponent<TMP_InputField>().text;
-        Debug.Log("Value Changed");
+        print("Value Changed");
 
         //Set newFileBool to true if the input participant ID is changed
         newFileBool = true;
@@ -309,6 +325,27 @@ public class logCSV : MonoBehaviour
         }
     }
 
+    //Function that reads CSV file
+    public void readCSV2(string csvPath2)
+    {
+        //Read in CSV file specified by csvPath input variable
+        using(var reader = new StreamReader(csvPath2))
+        {
+            //Create a different string list for each CSV column
+            List<string> listF = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+
+                listF.Add(values[0]);
+
+                data_sceneOrder = listF;
+            }
+        }
+    }
+
+
     //Function that reads the "commands.csv" CSV file and loads the last scene listed
     public void loadCommandedScene(string commandsPath)
     {
@@ -334,14 +371,14 @@ public class logCSV : MonoBehaviour
             {
                 addFinishedCommand(CommandsPath);
                 //Loads the scene stored in the second to last element of the data_sceneCommmand list
-                Debug.Log("Loading " + lastElement + "...");
+                print("Loading " + lastElement + "...");
                 SceneManager.LoadScene(lastElement, LoadSceneMode.Single);
             }
 
         //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
             // if(data_sceneName[data_sceneName.Count - 1] == "moonScene_Eyetracking")
             // {
-            //     Debug.Log("Loading Popup Scene");
+            //     print("Loading Popup Scene");
             // }
         //Else do nothing
     }
@@ -498,7 +535,7 @@ public class logCSV : MonoBehaviour
             differentIndex--;
         }
 
-        string sceneFilePath = participantID + "_SceneOrder.csv";
+        sceneFilePath = participantID + "_SceneOrder.csv";
 
         //Write this to a CSV called "Participant##_SceneOrder.csv"
         for (int i = 0; i < sceneArray.Length; i++)
@@ -524,5 +561,30 @@ public class logCSV : MonoBehaviour
     {
         //Shuffle the sceneArray and save to a CSV
         shuffleScenes();
+    }
+
+    public void loadSceneCSV(string sFilePath)
+    {
+        
+        if(data_sceneOrder[1] == "null")
+        {
+        readCSV2(@sFilePath);
+        }
+
+        string sceneToLoad = data_sceneOrder[sceneLoadIndex];
+        print("The next scene to load is" + sceneToLoad);
+        sceneLoadIndex++;
+        
+        //Load scene, or executable if sceneToLoad specifies popupwindow
+        if(sceneToLoad == "moonScene_PopUpWindow" )
+        {
+            // Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/PopUp_Window/VRHUD_Handtracking.exe");
+            Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
+            Application.Quit();
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+        }
     }
 }
