@@ -33,8 +33,7 @@ public class logCSV : MonoBehaviour
     public int trialNumber;
     public string trialNumberRef;
     public TMP_InputField InputField;
-    public TextMeshProUGUI debugText; 
-    public GameObject debugTextCanvas;
+    public TextMeshPro debugText; 
     private bool debugTextBool;
 
     public List<string> data_participantID;
@@ -70,7 +69,6 @@ public class logCSV : MonoBehaviour
         
         //Makes sure that all the data is together and doesn't get destroyed between scenes
         DontDestroyOnLoad(this.gameObject);
-        DontDestroyOnLoad(debugTextCanvas);
 
         sceneFilePath = "null";
         sceneLoadIndex = 0;
@@ -102,8 +100,8 @@ public class logCSV : MonoBehaviour
             }
 
             //Display the value of recentCSV on the screen
-            debugText.text = "recentCSV = <" + recentCSV + ">";
-
+            //debugText.text = "recentCSV = <" + recentCSV + ">";
+            debugText.text = participantID;
             //Initialize data array elements first and second elements to null so there are no index reading errors
             data_participantID.Add("null");
             data_participantID.Add("null");
@@ -163,10 +161,7 @@ public class logCSV : MonoBehaviour
         //Don't need the -1 since we aren't using the start scene
         trialNumber = trialOffset;
 
-        //Hide the debug text on start
-        debugTextBool = false;
-        debugText.gameObject.SetActive(debugTextBool);
-
+        
         //Initialize the newFileBool to false
         newFileBool = false;
 
@@ -199,13 +194,7 @@ public class logCSV : MonoBehaviour
         //Get trial number from the sceneLoader class and convert it to a string
         trialNumberRef = trialNumber.ToString();
 
-        //If the D key is pressed, toggle the debug text
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            debugTextBool = !debugTextBool;
-            debugText.gameObject.SetActive(debugTextBool);
-        }
-
+        
         //Start recording if the space bar is pressed on the keyboard and the recordingFlag is false
         if(Input.GetKeyDown(KeyCode.Space) && !recordingFlag)
         {
@@ -283,7 +272,7 @@ public class logCSV : MonoBehaviour
     {
         participantID = InputField.GetComponent<TMP_InputField>().text;
         print("Value Changed");
-
+        debugText.text = participantID;
         //Set newFileBool to true if the input participant ID is changed
         newFileBool = true;
 
