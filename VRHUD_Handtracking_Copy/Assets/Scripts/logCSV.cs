@@ -46,6 +46,11 @@ public class logCSV : MonoBehaviour
     private bool debugIDBool;
     public string buildFolder;
 
+    public bool recordingFlag;
+    private float startTime;
+    private float endTime;
+    public float recordedTime;
+
     void Awake()
     {   
         //Makes sure that all the data is together
@@ -124,6 +129,8 @@ public class logCSV : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        recordingFlag = false;          //Initialize recordingFlag to false
+            
         //Hide the debug ID on start
         debugIDBool = false;
         debugID.gameObject.SetActive(debugIDBool);
@@ -167,21 +174,35 @@ public class logCSV : MonoBehaviour
         //Get trial number from the sceneLoader class and convert it to a string
         trialNumberRef = trialNumber.ToString();
 
-        //Only record data if the space bar is pressed on the keyboard
-        if(Input.GetKeyDown(KeyCode.Space))
+        //Start recording if the space bar is pressed on the keyboard and the recordingFlag is false
+        if(Input.GetKeyDown(KeyCode.Space) && !recordingFlag)
         {
-            timeDifference = (currentTime - pastTime);
-            int min_diff = Mathf.FloorToInt(timeDifference/60);
-            int sec_diff = Mathf.FloorToInt(timeDifference%60);
+            print("Recording Started.");        //Print message in console
+            recordingFlag = true;               //Start recording data, indicated by flag 
+            startTime = currentTime;  
+        }
+
+        //Finish recording time when enter is pressed and the recordingFlag is true, then log to the CSV file
+        if(Input.GetKeyDown(KeyCode.Return) && recordingFlag)
+        {
+            print("Recording Stopped.");        //Print message in console
+            recordingFlag = false;               //Stop recording data, indicated by flag 
+            endTime = currentTime;
+            recordedTime = endTime - startTime; //Calculate the recorded time through subtraction
+          
+            int min_diff = Mathf.FloorToInt(recordedTime/60);   //Convert recordedTime to minutes
+            int sec_diff = Mathf.FloorToInt(recordedTime%60);   //Convert recordedTime to seconds
             timeDifferenceString = min_diff.ToString("00") + ":" + sec_diff.ToString("00");     //Save game time in seconds as a string
+            
             //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
-                if(data_participantID[1] != participantID)
-                {
-                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", buildFolder + participantID + "_VRHUD_Task_Time.csv");
-                }
+            if(newFileBool)
+            {
+                addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
+                newFileBool = false;
+            }
             //Add data as a new line to csv file
-            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, buildFolder + participantID + "_VRHUD_Task_Time.csv");
-            Debug.Log("Time: " + currentTimeString + "logged to CSV");
+            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
+            Debug.Log("Time: " + timeDifferenceString + " logged to CSV");
             pastTime = currentTime;
         }
 
