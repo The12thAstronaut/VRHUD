@@ -9,11 +9,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Random=UnityEngine.Random;
 
 public class logCSV : MonoBehaviour
 {
     private string currentTimeString;
     private List<string> data_sceneCommand;
+
+    public static System.Random ran = new System.Random();
 
     public float timeDifference;
     public string timeDifferenceString;
@@ -54,6 +57,8 @@ public class logCSV : MonoBehaviour
     public float recordedTime;
 
     private int sNameCounter;
+
+    public string[] sceneArray;
 
     void Awake()
     {   
@@ -266,6 +271,9 @@ public class logCSV : MonoBehaviour
         pastTime = 0.0f;
         trialNumber = -1;
         timeOffset = 0;
+
+        //Shuffle the sceneArray and save to a CSV
+        shuffleScenes();
     }
 
     //Function that reads CSV file
@@ -413,5 +421,39 @@ public class logCSV : MonoBehaviour
         //Append number onto scene type string
         sceneCounted = sceneType + " " + sNameCounter.ToString();
         return sceneCounted;
+    }
+
+    public void shuffleScenes()
+    {
+        //Initialize the sceneArray with 15 scene string names
+        sceneArray = new string[]
+        {
+            "moonScene_Gaze",
+            "moonScene_Gaze",
+            "moonScene_Gaze",
+            "moonScene_Eyetracking",
+            "moonScene_Eyetracking",
+            "moonScene_Eyetracking",
+            "moonScene_Voice",
+            "moonScene_Voice",
+            "moonScene_Voice",
+            "moonScene_Gesture",
+            "moonScene_Gesture",
+            "moonScene_Gesture",
+            "moonScene_PopUpWindow",
+            "moonScene_PopUpWindow",
+            "moonScene_PopUpWindow"
+        };
+
+        for (int i = sceneArray.Length - 1; i > 0; i--)
+        {
+            int randomIndex = ran.Next(0, i + 1);
+            
+            string temp = sceneArray[i];
+            sceneArray[i] = sceneArray[randomIndex];
+            sceneArray[randomIndex] = temp;
+        }
+
+        //Write this to a CSV called "Participant##_SceneOrder.csv"
     }
 }
