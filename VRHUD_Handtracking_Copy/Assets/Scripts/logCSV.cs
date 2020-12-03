@@ -51,6 +51,8 @@ public class logCSV : MonoBehaviour
     private float endTime;
     public float recordedTime;
 
+    private int sNameCounter;
+
     void Awake()
     {   
         //Makes sure that all the data is together
@@ -58,7 +60,7 @@ public class logCSV : MonoBehaviour
 
         //Initialize build folder file path
         buildFolder = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/";
-        // buildFolder = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final";
+        // buildFolder = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final/";
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
@@ -87,6 +89,8 @@ public class logCSV : MonoBehaviour
             data_currentTime.Add("null");
             data_trialNumber.Add("null");
             data_trialNumber.Add("null");
+            data_sceneName.Add("null");
+            data_sceneName.Add("null");
 
             //Call the readCSV function and use the most recent CSV as an input
             if(recentCSV != "null")
@@ -193,16 +197,17 @@ public class logCSV : MonoBehaviour
             int min_diff = Mathf.FloorToInt(recordedTime/60);   //Convert recordedTime to minutes
             int sec_diff = Mathf.FloorToInt(recordedTime%60);   //Convert recordedTime to seconds
             timeDifferenceString = min_diff.ToString("00") + ":" + sec_diff.ToString("00");     //Save game time in seconds as a string
-            
+
+            sceneName = sceneCounter(sceneName);//Call function that returns the scene name with a number, without the "moonScene_"
+
             //Add a header line to the csv file, but only if that file is new and a past participant number exists in the most recent CSV file
-            if(newFileBool)
-            {
-                addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", participantID + "_VRHUD_Task_Time.csv");
-                newFileBool = false;
-            }
+                if(data_participantID[1] != participantID)
+                {
+                    addRecord("participantID", "currentTimeString", "timeDifferenceString", "sceneName", "trialNumber", buildFolder + participantID + "_VRHUD_Task_Time.csv");
+                }
             //Add data as a new line to csv file
-            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, participantID + "_VRHUD_Task_Time.csv");
-            Debug.Log("Time: " + timeDifferenceString + " logged to CSV");
+            addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, buildFolder + participantID + "_VRHUD_Task_Time.csv");
+            Debug.Log(timeDifferenceString + " " + sceneName + " logged to CSV");
             pastTime = currentTime;
         }
 
@@ -328,8 +333,67 @@ public class logCSV : MonoBehaviour
         }
     }
 
-    //Work In Progress:
-    //Read the participant ID and set it when the scene is reopened
+    //Function to return a string of the scene name with a number afterwards, either 1 2 or 3
+    public string sceneCounter(string sName)
+    {
+        //Create new strings
+        string sceneCounted;
+        string sceneType;
+
+        //Reset sNameCounter to 1
+        sNameCounter = 1;
+
+        //Call the readCSV function to update the data_trialNumber array
+        readCSV(recentCSV);
+
+        //Check which scene it is
+        if(sName == "moonScene_Gaze")
+        {
+            sceneType = "Gaze";
+        }
+        else if(sName == "moonScene_Eyetracking")
+        {
+            sceneType = "Eyetracking";
+
+        }
+        else if(sName == "moonScene_Voice")
+        {
+            sceneType = "Voice";
+
+        }
+        else if(sName == "moonScene_Gesture")
+        {
+            sceneType = "Gesture";
+
+        }
+        else if(sName == "moonScene_PopUpWindow")
+        {
+            sceneType = "PopUpWindow";
+
+        }
+        else
+        {
+            sceneType = sName;
+        }
+
+        //Count how many times it has be listed in CSV file, if it exists
+        if(data_sceneName[1] != "null")
+        {
+            //Loop through the data and see how many times sName occurs
+            for(int k = 0; k < data_trialNumber.Count; k++)
+            {
+                //If the scene name in the CSV starts with the same name as the current scene, increment counter
+                if(data_sceneName[k].StartsWith(sceneType))
+                {
+                    sNameCounter++;
+                }
+            }
+        }
+
+        //Append number onto scene type string
+        sceneCounted = sceneType + " " + sNameCounter.ToString();
+        return sceneCounted;
+    }
 }
 
 //why is life so difficult lol
