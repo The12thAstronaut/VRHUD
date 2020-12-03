@@ -161,7 +161,11 @@ public class logCSV : MonoBehaviour
         //Initialize the newFileBool to false
         newFileBool = false;
 
+        //ValueChangeCheck function called when input field value changed
         InputField.onValueChanged.AddListener(delegate {ValueChangeCheck(); });
+
+        //Shuffle function called when editing of input field ends
+        InputField.onEndEdit.AddListener(delegate {SubmitParticipantNumber(); });
     }
 
     // Update is called once per frame
@@ -271,9 +275,6 @@ public class logCSV : MonoBehaviour
         pastTime = 0.0f;
         trialNumber = -1;
         timeOffset = 0;
-
-        //Shuffle the sceneArray and save to a CSV
-        shuffleScenes();
     }
 
     //Function that reads CSV file
@@ -454,6 +455,74 @@ public class logCSV : MonoBehaviour
             sceneArray[randomIndex] = temp;
         }
 
+            // while(sceneArray[14] == sceneArray[13])
+            // {   
+            //     //Only shuffle everything from 13 and before
+            //     for (int i = 0; i < 14; i++)
+            //     {
+            //         int randomIndex = ran.Next(0, i + 1);
+                    
+            //         string temp = sceneArray[i];
+            //         sceneArray[i] = sceneArray[randomIndex];
+            //         sceneArray[randomIndex] = temp;
+            //     }
+            // }
+        
+        //If one scene repeats itself, shuffle the remaining in descending order, down to the first two elements
+        for (int j = sceneArray.Length - 1; j > 1; j--)
+        {
+            while(sceneArray[j] == sceneArray[j-1])
+            {   
+                //Only shuffle everything from j-1 and before
+                for (int i = 0; i < j; i++)
+                {
+                    int randomIndex = ran.Next(0, i + 1);
+                    
+                    string temp = sceneArray[i];
+                    sceneArray[i] = sceneArray[randomIndex];
+                    sceneArray[randomIndex] = temp;
+                }
+            }
+        }
+
+        //Initialize differentIndex
+        int differentIndex = sceneArray.Length - 1;
+
+        //While the first two elements are the same, switch the 0 index with another index that is different
+        while(sceneArray[0] == sceneArray[1])
+        {   
+            //Swap the first string with a the differentIndex string
+            string temp2 = sceneArray[0];
+            sceneArray[0] = sceneArray[differentIndex];
+            sceneArray[differentIndex] = temp2;
+            differentIndex--;
+        }
+
+        string sceneFilePath = participantID + "_SceneOrder.csv";
+
         //Write this to a CSV called "Participant##_SceneOrder.csv"
+        for (int i = 0; i < sceneArray.Length; i++)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@sceneFilePath, true))
+                {
+                    //Save data as a new line in CSV file
+                    file.WriteLine(sceneArray[i] + ",");
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("This program did an oopsie :", ex);
+            }
+        }
+
+        print("Scenes have been shuffled.");
+    }
+
+    private void SubmitParticipantNumber()
+    {
+        //Shuffle the sceneArray and save to a CSV
+        shuffleScenes();
     }
 }
