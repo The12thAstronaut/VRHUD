@@ -15,9 +15,8 @@ using Random=UnityEngine.Random;
 public class logCSV : MonoBehaviour
 {
     private string currentTimeString;
-    public List<string> data_sceneOrderIndex;
-    public List<string> data_sceneCommand;
-    public List<string> data_sceneArray;
+    public List<string> data_sceneCommand;          //Scene to load from CSV file
+    public List<string> data_sceneArray;            //
 
     public static System.Random ran = new System.Random();
    
@@ -44,15 +43,16 @@ public class logCSV : MonoBehaviour
     public List<string> data_sceneName;
     public List<string> data_trialNumber;
     public List<string> data_sceneOrder;
+    public List<string> data_sceneOrderIndex;
 
     public string[] csvFiles;
-    public string recentCSV;
-
+ 
     private int sceneIndexOffset;
     private float timeOffset;
     private int trialOffset;
 
-    public bool newFileBool;
+    private bool newFileBool;
+    private bool haveScenesShuffled;
     public string CommandsPath;
     public string sceneOrderPath;
 
@@ -62,11 +62,10 @@ public class logCSV : MonoBehaviour
     public float recordedTime;
 
     private int sNameCounter;
-
-    private string[] sceneArray;
-    public string sceneFilePath;
-
     private int sceneLoadIndex;
+
+    public string[] sceneArray;
+    public string recentCSV;
 
     void Awake()
     {   
@@ -74,12 +73,16 @@ public class logCSV : MonoBehaviour
         //Makes sure that all the data is together and doesn't get destroyed between scenes
         DontDestroyOnLoad(this.gameObject);
 
-        sceneFilePath = "null";
+        sceneOrderPath = "null";
+
+        haveScenesShuffled = false;     //Initialize boolean to false
 
         //Set path to commands csv
         CommandsPath = "commands/commands.csv";
         
-        //Inialize sceneOrderIndex and data_sceneArray with null values
+        //Inialize data_sceneOrder, data_sceneOrderIndex and data_sceneArray with null values
+        data_sceneOrder.Add("null");
+        data_sceneOrder.Add("null");
         data_sceneOrderIndex.Add("null");
         data_sceneOrderIndex.Add("null");
         data_sceneArray.Add("null");
@@ -105,6 +108,7 @@ public class logCSV : MonoBehaviour
             "moonScene_PopUpWindow"
         };
 
+
         //Loads the scene specified in the commands.csv
         loadCommandedScene(CommandsPath);
 
@@ -116,6 +120,7 @@ public class logCSV : MonoBehaviour
         else
         {   //If data exists, convert the string index to an integer to resume from the index
             sceneIndexOffset = Convert.ToInt32(data_sceneOrderIndex[data_sceneOrderIndex.Count - 1]);
+            sceneIndexOffset++; //Increment offset by 1 to queue up the next scene to be loaded
         }
         //Initialize the sceneLoadIndex base off of the data
         sceneLoadIndex = 0 + sceneIndexOffset;
@@ -169,7 +174,7 @@ public class logCSV : MonoBehaviour
                 sceneOrderPath = participantID + "_SceneOrder.csv";
 
                 //Load in scene array from past data
-                readSceneCSV(sceneOrderPath);
+                readExistingSceneCSV(sceneOrderPath);
 
                 //Load the data_sceneArray values into the sceneArray
                 for(int i = 0; i < data_sceneArray.Count; i++)
@@ -284,8 +289,8 @@ public class logCSV : MonoBehaviour
         //Press tab to load the next Moon Scene based on the randomized scene order
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            //Call function Read participant CSV and load next scene
-            loadSceneCSV(sceneFilePath);
+            //Call function to read participant CSV and load next scene
+            loadSceneCSV(sceneOrderPath);
         }
 
 
@@ -366,8 +371,8 @@ public class logCSV : MonoBehaviour
         }
     }
 
-    //Function that reads CSV file
-    public void readCSV2(string csvPath2)
+    //Function that reads CSV file from the newly randomized data
+    public void readNewSceneCSV(string csvPath2)
     {
         //Read in CSV file specified by csvPath input variable
         using(var reader = new StreamReader(csvPath2))
@@ -386,8 +391,8 @@ public class logCSV : MonoBehaviour
         }
     }
 
-    //Function that reads sceneorder CSV file
-    public void readSceneCSV(string csvPath3)
+    //Function that reads the existing sceneorder CSV file, based on the participant number
+    public void readExistingSceneCSV(string csvPath3)
     {
         //Read in CSV file specified by csvPath input variable
         using(var reader = new StreamReader(csvPath3))
@@ -474,8 +479,11 @@ public class logCSV : MonoBehaviour
         //Reset sNameCounter to 1
         sNameCounter = 1;
 
-        //Call the readCSV function to update the data_trialNumber array
-        readCSV(recentCSV);
+        //Call the readCSV function to update the data_trialNumber array, if recentCSV exists
+        if(recentCSV != "null")
+        {
+            readCSV(recentCSV);
+        }
 
         //Check which scene it is
         if(sName == "moonScene_Gaze")
@@ -601,14 +609,14 @@ public class logCSV : MonoBehaviour
             differentIndex--;
         }
 
-        sceneFilePath = participantID + "_SceneOrder.csv";
+        sceneOrderPath = participantID + "_SceneOrder.csv";
 
         //Write this to a CSV called "Participant##_SceneOrder.csv"
         for (int i = 0; i < sceneArray.Length; i++)
         {
             try
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@sceneFilePath, true))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@sceneOrderPath, true))
                 {
                     //Save data as a new line in CSV file
                     file.WriteLine(sceneArray[i] + ",");
@@ -625,17 +633,23 @@ public class logCSV : MonoBehaviour
 
     private void SubmitParticipantNumber()
     {
-        //Shuffle the sceneArray and save to a CSV
-        shuffleScenes();
+        //Only shuffle the scenes and write to CSV once per simulation
+        if(haveScenesShuffled == false)
+        {
+            //Shuffle the sceneArray and save to a CSV
+            shuffleScenes();
+        }
+        haveScenesShuffled = true;  //Set boolean to true, so scenes only shuffle once upon new participant number
     }
 
     public void loadSceneCSV(string sFilePath)
     {
-        
+        //Load in the scene data from the new CSV file, if it hasn't already been loaded
         if(data_sceneOrder[1] == "null")
         {
-        readCSV2(@sFilePath);
+        readNewSceneCSV(@sFilePath);
         }
+
         if(sceneLoadIndex == 15)
         {
             Application.Quit();
