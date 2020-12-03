@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random=UnityEngine.Random;
 
 public class textSwitcher : MonoBehaviour
 {
     public TextMeshPro[] textArray;
     private string[,] textPairArray = new string[6,2];
+
+    public int[] shuffledIntArray;
+    public static System.Random ran = new System.Random();
 
     void Start()
     {
@@ -19,19 +23,39 @@ public class textSwitcher : MonoBehaviour
             textPairArray[i,1] = textArray[2*i+1].text;
             //Debug.Log("FirstIndex " + 2*i + textPairArray[i,0]);
         }
-        //randomize the order of scroll menu
-        arrangeText(6,5,4,3,2,1, textPairArray);
+        //shuffle integers and randomize the order of scroll menu
+        shuffleInt();
+        arrangeText(
+                shuffledIntArray[0],
+                shuffledIntArray[1],
+                shuffledIntArray[2],
+                shuffledIntArray[3],
+                shuffledIntArray[4],
+                shuffledIntArray[5],
+                textPairArray
+                );
         //randomize the distance/money values
-        randomizeString(textPairArray)
+        randomizeString(textPairArray);
         //Example of how to arrange text in reverse order
         // arrangeText(6,5,4,3,2,1,textPairArray);
     }
 
     void Update()
     {
-        //Randomizes number values within string if the "Q" key is pressed
+        //Randomizes number values and shuffle int order within string if the "Q" key is pressed
         if(Input.GetKeyDown(KeyCode.Q)){
             randomizeString(textPairArray);
+            //shuffle integers and randomize the order of scroll menu
+            shuffleInt();
+            arrangeText(
+                    shuffledIntArray[0],
+                    shuffledIntArray[1],
+                    shuffledIntArray[2],
+                    shuffledIntArray[3],
+                    shuffledIntArray[4],
+                    shuffledIntArray[5],
+                    textPairArray
+                    );
         }
 
         //Randomizes text order if the "A" key is pressed
@@ -172,5 +196,26 @@ public class textSwitcher : MonoBehaviour
 
     }
 
+    public void shuffleInt()
+    {
+        //Initialize the shuffledIntArray with 6 integers
+        shuffledIntArray = new int[]
+        {
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+        };
 
+        for (int i = shuffledIntArray.Length - 1; i > 0; i--)
+        {
+            int randomIndex = ran.Next(0, i + 1);
+            
+            int temp = shuffledIntArray[i];
+            shuffledIntArray[i] = shuffledIntArray[randomIndex];
+            shuffledIntArray[randomIndex] = temp;
+        }
+    }
 }
