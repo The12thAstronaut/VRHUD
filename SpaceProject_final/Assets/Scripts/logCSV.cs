@@ -15,10 +15,12 @@ using Random=UnityEngine.Random;
 public class logCSV : MonoBehaviour
 {
     private string currentTimeString;
-    private List<string> data_sceneCommand;
+    public List<string> data_sceneOrderIndex;
+    public List<string> data_sceneCommand;
+    public List<string> data_sceneArray;
 
     public static System.Random ran = new System.Random();
-
+   
     public float timeDifference;
     public string timeDifferenceString;
 
@@ -46,11 +48,13 @@ public class logCSV : MonoBehaviour
     public string[] csvFiles;
     public string recentCSV;
 
+    private int sceneIndexOffset;
     private float timeOffset;
     private int trialOffset;
 
     public bool newFileBool;
     public string CommandsPath;
+    public string sceneOrderPath;
 
     public bool recordingFlag;
     private float startTime;
@@ -59,7 +63,7 @@ public class logCSV : MonoBehaviour
 
     private int sNameCounter;
 
-    public string[] sceneArray;
+    private string[] sceneArray;
     public string sceneFilePath;
 
     private int sceneLoadIndex;
@@ -71,13 +75,51 @@ public class logCSV : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         sceneFilePath = "null";
-        sceneLoadIndex = 0;
 
         //Set path to commands csv
         CommandsPath = "commands/commands.csv";
         
+        //Inialize sceneOrderIndex and data_sceneArray with null values
+        data_sceneOrderIndex.Add("null");
+        data_sceneOrderIndex.Add("null");
+        data_sceneArray.Add("null");
+        data_sceneArray.Add("null");
+
+        //Initialize the sceneArray with 15 scene string names
+        sceneArray = new string[]
+        {
+            "moonScene_Gaze",
+            "moonScene_Gaze",
+            "moonScene_Gaze",
+            "moonScene_Eyetracking",
+            "moonScene_Eyetracking",
+            "moonScene_Eyetracking",
+            "moonScene_Voice",
+            "moonScene_Voice",
+            "moonScene_Voice",
+            "moonScene_Gesture",
+            "moonScene_Gesture",
+            "moonScene_Gesture",
+            "moonScene_PopUpWindow",
+            "moonScene_PopUpWindow",
+            "moonScene_PopUpWindow"
+        };
+
         //Loads the scene specified in the commands.csv
         loadCommandedScene(CommandsPath);
+
+        //Sets the sceneLoadIndex based on the most recent sceneOrderIndex from commands.csv, if data exists
+        if(data_sceneOrderIndex[data_sceneOrderIndex.Count - 1] == "null" || data_sceneOrderIndex[data_sceneOrderIndex.Count - 1] == "Finished")
+        {
+            sceneIndexOffset = 0;
+        }
+        else
+        {   //If data exists, convert the string index to an integer to resume from the index
+            sceneIndexOffset = Convert.ToInt32(data_sceneOrderIndex[data_sceneOrderIndex.Count - 1]);
+        }
+        //Initialize the sceneLoadIndex base off of the data
+        sceneLoadIndex = 0 + sceneIndexOffset;
+
 
         //Read most recent CSV file data
             //Search for CSV files within project directory
@@ -111,8 +153,6 @@ public class logCSV : MonoBehaviour
             data_trialNumber.Add("null");
             data_sceneName.Add("null");
             data_sceneName.Add("null");
-            data_sceneOrder.Add("null");
-            data_sceneOrder.Add("null");
 
             //Call the readCSV function and use the most recent CSV as an input, if it exists
             if(recentCSV != "null")
@@ -120,10 +160,22 @@ public class logCSV : MonoBehaviour
             readCSV(recentCSV);
             }
 
-            //Set participant id based on last element of data_participantID array, if a valid value exists
+            //Set participant id and load in sceneOrder data based on last element of data_participantID array, if a valid value exists
             if(data_participantID[1] != "null")
             {
                 participantID = data_participantID[data_participantID.Count - 1];
+
+                //Set path to sceneOrder CSV
+                sceneOrderPath = participantID + "_SceneOrder.csv";
+
+                //Load in scene array from past data
+                readSceneCSV(sceneOrderPath);
+
+                //Load the data_sceneArray values into the sceneArray
+                for(int i = 0; i < data_sceneArray.Count; i++)
+                {
+                    sceneArray[i] = data_sceneArray[i];
+                }
             }
 
             //Figure out time offset based on most recent time and convert it to a float number in terms of seconds
@@ -151,7 +203,7 @@ public class logCSV : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {      
         recordingFlag = false;          //Initialize recordingFlag to false
         
         //By default, import the data offset values from the CSV file
@@ -334,6 +386,26 @@ public class logCSV : MonoBehaviour
         }
     }
 
+    //Function that reads sceneorder CSV file
+    public void readSceneCSV(string csvPath3)
+    {
+        //Read in CSV file specified by csvPath input variable
+        using(var reader = new StreamReader(csvPath3))
+        {
+            //Create a different string list for each CSV column
+            List<string> listG = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+
+                listG.Add(values[0]);
+
+                data_sceneOrder = listG;
+            }
+        }
+    }
+
 
     //Function that reads the "commands.csv" CSV file and loads the last scene listed
     public void loadCommandedScene(string commandsPath)
@@ -342,13 +414,16 @@ public class logCSV : MonoBehaviour
         using(var reader = new StreamReader(commandsPath))
         {
             //Create a different string list for each CSV column
-            List<string> listTemp = new List<string>();
+            List<string> orderIndexList = new List<string>();
+            List<string> sceneIndexList = new List<string>();
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
                 var values = line.Split(',');
-                listTemp.Add(values[0]);
-                data_sceneCommand = listTemp;
+                orderIndexList.Add(values[0]);
+                sceneIndexList.Add(values[1]);
+                data_sceneOrderIndex = orderIndexList;
+                data_sceneCommand = sceneIndexList;
             }
         }
 
@@ -379,7 +454,8 @@ public class logCSV : MonoBehaviour
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath, true))
             {
                 //Save data as a new line in CSV file
-                file.WriteLine("Finished" + ",");
+                //Finished is written twice, since there are two columns in this csv
+                file.WriteLine("Finished" + "," + "Finished" + ",");
             }
         }
         catch(Exception ex)
@@ -452,6 +528,7 @@ public class logCSV : MonoBehaviour
 
     public void shuffleScenes()
     {
+
         //Initialize the sceneArray with 15 scene string names
         sceneArray = new string[]
         {
@@ -562,7 +639,7 @@ public class logCSV : MonoBehaviour
         if(sceneLoadIndex == 15)
         {
             Application.Quit();
-            print("The studey is ended");
+            print("The study is ended");
         }
         string sceneToLoad = data_sceneOrder[sceneLoadIndex];
         print("The next scene to load is" + sceneToLoad);
@@ -571,6 +648,8 @@ public class logCSV : MonoBehaviour
         //Load scene, or executable if sceneToLoad specifies popupwindow
         if(sceneToLoad == "moonScene_PopUpWindow" )
         {
+            //Adds a command of the scene index and scene name designated by "sceneLoadIndex + 1" to load upon return
+            addSceneCommand2(sceneLoadIndex, data_sceneOrder[sceneLoadIndex], @CommandsPath);
             Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/PopUp_Window/VRHUD_Handtracking.exe");
             // Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
             Application.Quit();
@@ -578,6 +657,22 @@ public class logCSV : MonoBehaviour
         else
         {
             SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+        }
+    }
+
+    public static void addSceneCommand2(int orderIndex, string sceneNameString, string cmdfilepath)
+    {
+        try
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(cmdfilepath, true))
+            {
+                //Save data as a new line in CSV file
+                file.WriteLine(orderIndex + "," + sceneNameString + ",");
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new ApplicationException("This program did an oopsie :", ex);
         }
     }
 }

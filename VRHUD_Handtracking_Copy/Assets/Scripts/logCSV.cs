@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,9 @@ using UnityEngine.SceneManagement;
 
 public class logCSV : MonoBehaviour
 {
+    public string commandPath;
+    public string prjFinalPath;
+    
     private string currentTimeString;
     private List<string> data_sceneCommand;
 
@@ -133,6 +137,9 @@ public class logCSV : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // prjFinalPath = "C:/Users/nmchenry1/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
+        prjFinalPath = "C:/Users/kdy7991/Desktop/Build_Files/Project_Final/VRHUDProject_Final.exe";
+        
         recordingFlag = false;          //Initialize recordingFlag to false
             
         //Hide the debug ID on start
@@ -209,6 +216,13 @@ public class logCSV : MonoBehaviour
             addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, buildFolder + participantID + "_VRHUD_Task_Time.csv");
             Debug.Log(timeDifferenceString + " " + sceneName + " logged to CSV");
             pastTime = currentTime;
+        }
+
+        //Press tab to load the next Moon Scene based on the randomized scene order
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            //Call function Read participant CSV and load next scene
+            loadSpaceProjectFinal();
         }
 
         //Saves most recent scene name
@@ -393,6 +407,13 @@ public class logCSV : MonoBehaviour
         //Append number onto scene type string
         sceneCounted = sceneType + " " + sNameCounter.ToString();
         return sceneCounted;
+    }
+
+    //Loads the space project final executable, this function is called during update when tab is pressed
+    public void loadSpaceProjectFinal()
+    {
+        Process.Start(@prjFinalPath);
+        Application.Quit();
     }
 }
 
