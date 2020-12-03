@@ -578,8 +578,8 @@ public class logCSV : MonoBehaviour
         //Load scene, or executable if sceneToLoad specifies popupwindow
         if(sceneToLoad == "moonScene_PopUpWindow" )
         {
-            // Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/PopUp_Window/VRHUD_Handtracking.exe");
-            Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
+            Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/PopUp_Window/VRHUD_Handtracking.exe");
+            // Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
             Application.Quit();
         }
         else
