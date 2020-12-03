@@ -19,7 +19,10 @@ public class textSwitcher : MonoBehaviour
             textPairArray[i,1] = textArray[2*i+1].text;
             //Debug.Log("FirstIndex " + 2*i + textPairArray[i,0]);
         }
-
+        //randomize the order of scroll menu
+        arrangeText(6,5,4,3,2,1, textPairArray);
+        //randomize the distance/money values
+        randomizeString(textPairArray)
         //Example of how to arrange text in reverse order
         // arrangeText(6,5,4,3,2,1,textPairArray);
     }
