@@ -214,7 +214,7 @@ public class logCSV : MonoBehaviour
                 }
             //Add data as a new line to csv file
             addRecord(participantID, currentTimeString, timeDifferenceString, sceneName, trialNumberRef, buildFolder + participantID + "_VRHUD_Task_Time.csv");
-            Debug.Log(timeDifferenceString + " " + sceneName + " logged to CSV");
+            print(timeDifferenceString + " " + sceneName + " logged to CSV");
             pastTime = currentTime;
         }
 
@@ -259,7 +259,7 @@ public class logCSV : MonoBehaviour
     public void ValueChangeCheck()
     {
         // participantID = InputField.GetComponent<TMP_InputField>().text;
-        Debug.Log("Value Changed");
+        print("Value Changed");
     }
 
     //Function that reads CSV file
@@ -319,14 +319,14 @@ public class logCSV : MonoBehaviour
             {
                 addFinishedCommand("commands/commands.csv");
                 //Loads the scene stored in the second to last element of the data_sceneCommmand list
-                Debug.Log("Loading " + lastElement + "...");
+                print("Loading " + lastElement + "...");
                 SceneManager.LoadScene(lastElement, LoadSceneMode.Single);
             }
 
         //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
             // if(data_sceneName[data_sceneName.Count - 1] == "moonScene_Eyetracking")
             // {
-            //     Debug.Log("Loading Popup Scene");
+            //     print("Loading Popup Scene");
             // }
         //Else do nothing
     }
