@@ -50,6 +50,16 @@ VRHUD_Handtracking_Copy/Builds/
 VRHUD_Handtracking_Copy/Assets/AssetStoreTools*
 !VRHUD_Handtracking_Copy/Library/LastSceneManagerSetup.txt
 
+#Library and Build files from VarjoHUD
+VarjoHUD/Library/
+
+VarjoHUD/Temp/
+VarjoHUD/Obj/
+VarjoHUD/Build/
+VarjoHUD/Builds/
+VarjoHUD/Assets/AssetStoreTools*
+!VarjoHUD/Library/LastSceneManagerSetup.txt
+
 #Don't ignore input settings
 !SpaceProject_final/ProjectSettings/InputManager.asset
 
