@@ -5,6 +5,8 @@ using UnityEngine;
 // using Tobii.G2OM;
 using Microsoft.MixedReality.Toolkit.UI;
 
+
+
 public class EyeTracking_triggerPlane : MonoBehaviour
 {
     public GameObject menu;
@@ -43,9 +45,10 @@ public class EyeTracking_triggerPlane : MonoBehaviour
 
     
     private float timeStart =0;
-    
+
     //The method of the "IGazeFocusable" interface, which will be called when this object receives or loses focus
-    public void GazeFocusChanged(bool hasFocus){
+        //public void GazeFocusChanged(bool hasFocus){
+        public void Rayhit(bool hasFocus){
         //If this object received focus, fade the object's color to highlight color
         if (hasFocus){
             Trigger_R_targetColor = HighlightColor;

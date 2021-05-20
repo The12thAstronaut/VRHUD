@@ -1,0 +1,185 @@
+Using pre-set license
+Built from '2020.3/release' branch; Version is '2020.3.7f1 (dd97f2c94397) revision 14522354'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro for Workstations; OS build 19041.985; Version 2004; 64bit' Language: 'en' Physical Memory: 130743 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/ageczlab/Desktop/VarjoSampleProject_Trial/New Unity Project
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+57386
+Successfully changed project path to: C:/Users/ageczlab/Desktop/VarjoSampleProject_Trial/New Unity Project
+C:/Users/ageczlab/Desktop/VarjoSampleProject_Trial/New Unity Project
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 87.93 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.7f1 (dd97f2c94397)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/ageczlab/Desktop/VarjoSampleProject_Trial/New Unity Project/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA Quadro RTX 4000 (ID=0x1eb1)
+    Vendor:   
+    VRAM:     8018 MB
+    Driver:   27.21.14.6155
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56120
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002468 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 93.18 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.600 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.004080 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 97.94 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.498 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.94 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3242 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 151.7 MB.
+System memory in use after: 150.4 MB.
+
+Unloading 1773 unused Assets to reduce memory usage. Loaded Objects now: 3498.
+Total: 10.337200 ms (FindLiveObjects: 0.733600 ms CreateObjectMapping: 0.485200 ms MarkObjects: 3.312400 ms  DeleteObjects: 5.803100 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/m_Green.mat
+  artifactKey: Guid(b2506dca99a273e43845072cffe9970f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/m_Green.mat using Guid(b2506dca99a273e43845072cffe9970f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '526bbf8da42f4a2984a6d18fd1e901e5') in 0.251900 seconds
+  Import took 0.260512 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.836392 seconds.
+  path: Assets/Scenes/PracticeScene_Gaze.unity
+  artifactKey: Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/PracticeScene_Gaze.unity using Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5cbe66fe371474056e3f3a88aeaa44c') in 0.010403 seconds
+  Import took 0.019016 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.329684 seconds.
+  path: Assets/Scenes/PracticeScene_Gaze.unity
+  artifactKey: Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/PracticeScene_Gaze.unity using Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2124b42dd776a6ff4a0c309b7112882') in 0.004907 seconds
+  Import took 0.014735 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 128.736540 seconds.
+  path: Assets/Scenes/PracticeScene_Gaze.unity
+  artifactKey: Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/PracticeScene_Gaze.unity using Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7167b2304e2df6aa11f2e790e646231a') in 0.008431 seconds
+  Import took 0.015806 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.098268 seconds.
+  path: Assets/Scenes/PracticeScene_Gaze.unity
+  artifactKey: Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/PracticeScene_Gaze.unity using Guid(9cb8d6996a942704b822a158542e7b83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad0d4d5b76a77f7530372de8a20966e7') in 0.005383 seconds
+  Import took 0.013144 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 242.275501 seconds.
+  path: Assets/MRTK/Tools/MSBuild/AssemblyInfo.cs
+  artifactKey: Guid(2c9cdfd5ae499c9479f64235ed3baf8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MRTK/Tools/MSBuild/AssemblyInfo.cs using Guid(2c9cdfd5ae499c9479f64235ed3baf8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad09c3047deb984ce428d67ae26c7133') in 0.016327 seconds
+  Import took 0.024971 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 66.145976 seconds.
+  path: Assets/MRTK/Tools/RuntimeTools/Tools/AssemblyInfo.cs
+  artifactKey: Guid(aea691c70055f1e49bdd2e4321e4146b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/MRTK/Tools/RuntimeTools/Tools/AssemblyInfo.cs using Guid(aea691c70055f1e49bdd2e4321e4146b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e78ff53dc50ca54e512e6f0a47674aa') in 0.004876 seconds
+  Import took 0.013494 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004998 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.75 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Error when attempting to update scene info fields. Scene info data may be stale.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+Microsoft.MixedReality.Toolkit.Editor.SceneInfoUtils:RefreshSceneInfoFieldsInScriptableObjects () (at C:/Users/ageczlab/Desktop/VarjoSampleProject - Copy/New Unity Project/Assets/MRTK/Core/Inspectors/PropertyDrawers/SceneInfoUtils.cs:313)
+Microsoft.MixedReality.Toolkit.Editor.SceneInfoUtils:InitializeOnLoad () (at C:/Users/ageczlab/Desktop/VarjoSampleProject - Copy/New Unity Project/Assets/MRTK/Core/Inspectors/PropertyDrawers/SceneInfoUtils.cs:231)
+
+(Filename: C:/Users/ageczlab/Desktop/VarjoSampleProject - Copy/New Unity Project/Assets/MRTK/Core/Inspectors/PropertyDrawers/SceneInfoUtils.cs Line: 313)
+
+Mono: successfully reloaded assembly
+- Completed reload, in  3.397 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.69 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3198 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 147.7 MB.
+System memory in use after: 145.8 MB.
+
+Unloading 1590 unused Assets to reduce memory usage. Loaded Objects now: 3598.
+Total: 6.994800 ms (FindLiveObjects: 0.576500 ms CreateObjectMapping: 0.293200 ms MarkObjects: 2.676400 ms  DeleteObjects: 3.447200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003618 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.09 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Error when attempting to update scene info fields. Scene info data may be stale.
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+Microsoft.MixedReality.Toolkit.Editor.SceneInfoUtils:RefreshSceneInfoFieldsInScriptableObjects () (at C:/Users/ageczlab/Desktop/VarjoSampleProject - Copy/New Unity Project/Assets/MRTK/Core/Inspectors/PropertyDrawers/SceneInfoUtils.cs:313)
+Microsoft.MixedReality.Toolkit.Editor.SceneInfoUtils:InitializeOnLoad () (at C:/Users/ageczlab/Desktop/VarjoSampleProject - Copy/New Unity Project/Assets/MRTK/Core/Inspectors/PropertyDrawers/SceneInfoUtils.cs:231)
+
+(Filename: C:/Users/ageczlab/Desktop/VarjoSampleProject - Copy/New Unity Project/Assets/MRTK/Core/Inspectors/PropertyDrawers/SceneInfoUtils.cs Line: 313)
+
+Mono: successfully reloaded assembly
+- Completed reload, in  1.876 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.11 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3198 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 147.5 MB.
+System memory in use after: 145.6 MB.
+
+Unloading 1590 unused Assets to reduce memory usage. Loaded Objects now: 3602.
+Total: 8.606600 ms (FindLiveObjects: 0.912500 ms CreateObjectMapping: 0.489100 ms MarkObjects: 3.330400 ms  DeleteObjects: 3.873000 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
