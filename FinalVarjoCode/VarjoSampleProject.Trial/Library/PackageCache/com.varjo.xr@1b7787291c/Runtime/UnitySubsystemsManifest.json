@@ -1,0 +1,27 @@
+{
+  "name": "Varjo",
+  "version": "1.0.0",
+  "libraryName": "VarjoUnityXR",
+
+  "displays": [
+    {
+      "id": "VarjoDisplay",
+      "disablesLegacyVr": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "VarjoInput"
+    }
+  ],
+  "meshings": [
+    {
+      "id": "VarjoMeshing"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "VarjoSession"
+    }
+  ]
+}
