@@ -174,7 +174,7 @@ public class logCSV : MonoBehaviour
             sceneOrderPath = participantID + "_SceneOrder.csv";
 
             //Load in scene array from past data
-            readExistingSceneCSV(sceneOrderPath);
+            // readExistingSceneCSV(sceneOrderPath);
 
             //Load the data_sceneArray values into the sceneArray
             for (int i = 0; i < data_sceneArray.Count; i++)
@@ -290,7 +290,7 @@ public class logCSV : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             //Call function to read participant CSV and load next scene
-            loadSceneCSV(sceneOrderPath);
+            loadScene();
         }
 
 
@@ -338,13 +338,13 @@ public class logCSV : MonoBehaviour
         trialNumber = -1;
         timeOffset = 0;
 
-        print("Checkpoint A");
+        // print("Checkpoint A");
         //Only shuffle the scenes and write to CSV once per simulation
         if (haveScenesShuffled == false)
         {
             //Shuffle the sceneArray and save to a CSV
             shuffleScenes();
-            print("Checkpoint B");
+            // print("Checkpoint B");
         }
         haveScenesShuffled = true;  //Set boolean to true, so scenes only shuffle once upon new participant number
     }
@@ -654,21 +654,22 @@ public class logCSV : MonoBehaviour
         haveScenesShuffled = true;  //Set boolean to true, so scenes only shuffle once upon new participant number
     }
 
-    public void loadSceneCSV(string sFilePath)
+    public void loadScene()
     {
-        //Load in the scene data from the new CSV file, if it hasn't already been loaded
-        if (data_sceneOrder[1] == "null")
-        {
-            readNewSceneCSV(@sFilePath);
-        }
+        // //Load in the scene data from the new CSV file, if it hasn't already been loaded
+        // if (data_sceneOrder[1] == "null")
+        // {
+        //     readNewSceneCSV(@sFilePath);
+        // }
 
         if (sceneLoadIndex == 15)
         {
             Application.Quit();
             print("The study is ended");
         }
-        string sceneToLoad = data_sceneOrder[sceneLoadIndex];
-        print("The next scene to load is" + sceneToLoad);
+
+        string sceneToLoad = sceneArray[sceneLoadIndex];
+        print("The next scene to load is: " + sceneToLoad);
         sceneLoadIndex++;
 
         ////Load scene, or executable if sceneToLoad specifies popupwindow
