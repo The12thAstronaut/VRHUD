@@ -60,6 +60,16 @@ VarjoHUD/Builds/
 VarjoHUD/Assets/AssetStoreTools*
 !VarjoHUD/Library/LastSceneManagerSetup.txt
 
+#Library and Build files from VarjoHUD
+FinalVarjoCode/VarjoSampleProject.Trial/Library/
+
+FinalVarjoCode/VarjoSampleProject.Trial/Temp/
+FinalVarjoCode/VarjoSampleProject.Trial/Obj/
+FinalVarjoCode/VarjoSampleProject.Trial/Build/
+FinalVarjoCode/VarjoSampleProject.Trial/Builds/
+FinalVarjoCode/VarjoSampleProject.Trial/Assets/AssetStoreTools*
+!FinalVarjoCode/VarjoSampleProject.Trial/Library/LastSceneManagerSetup.txt
+
 #Don't ignore input settings
 !SpaceProject_final/ProjectSettings/InputManager.asset
 
