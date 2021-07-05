@@ -108,24 +108,6 @@ public class logCSV : MonoBehaviour
             "moonScene_PopUpWindow"
         };
 
-
-        ////Loads the scene specified in the commands.csv
-        //loadCommandedScene(CommandsPath);
-
-        ////Sets the sceneLoadIndex based on the most recent sceneOrderIndex from commands.csv, if data exists
-        //if (data_sceneOrderIndex[data_sceneOrderIndex.Count - 1] == "null" || data_sceneOrderIndex[data_sceneOrderIndex.Count - 1] == "Finished")
-        //{
-        //    sceneIndexOffset = 0;
-        //}
-        //else
-        //{   //If data exists, convert the string index to an integer to resume from the index
-        //    sceneIndexOffset = Convert.ToInt32(data_sceneOrderIndex[data_sceneOrderIndex.Count - 1]);
-        //    sceneIndexOffset++; //Increment offset by 1 to queue up the next scene to be loaded
-        //}
-        ////Initialize the sceneLoadIndex base off of the data
-        //sceneLoadIndex = 0 + sceneIndexOffset;
-
-
         //Read most recent CSV file data
         //Search for CSV files within project directory
         csvFiles = System.IO.Directory.GetFiles(System.IO.Directory.GetCurrentDirectory(), "*Time.csv");
@@ -147,7 +129,6 @@ public class logCSV : MonoBehaviour
         }
 
         //Display the value of recentCSV on the screen
-        //debugText.text = "recentCSV = <" + recentCSV + ">";
         debugText.text = participantID;
         //Initialize data array elements first and second elements to null so there are no index reading errors
         data_participantID.Add("null");
@@ -172,9 +153,6 @@ public class logCSV : MonoBehaviour
 
             //Set path to sceneOrder CSV
             sceneOrderPath = participantID + "_SceneOrder.csv";
-
-            //Load in scene array from past data
-            readExistingSceneCSV(sceneOrderPath);
 
             //Load the data_sceneArray values into the sceneArray
             for (int i = 0; i < data_sceneArray.Count; i++)
@@ -201,9 +179,6 @@ public class logCSV : MonoBehaviour
             trialOffset = (int)Convert.ToDouble(data_trialNumber[data_trialNumber.Count - 1]);
             trialOffset = trialOffset - 1;    //Decrement trialOffset by 1 to account for startScene
         }
-        //Read CSV file data, hardcoded option
-        // string CSVPath = @"C:/Users/nmchenry1/Documents/GitHub/VRHUD/SpaceProject_final/12_VRHUD_Task_Time.csv";
-        // readCSV(CSVPath);
     }
 
     // Start is called before the first frame update
@@ -290,7 +265,7 @@ public class logCSV : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             //Call function to read participant CSV and load next scene
-            loadSceneCSV(sceneOrderPath);
+            loadScene();
         }
 
 
@@ -337,16 +312,6 @@ public class logCSV : MonoBehaviour
         pastTime = 0.0f;
         trialNumber = -1;
         timeOffset = 0;
-
-        print("Checkpoint A");
-        //Only shuffle the scenes and write to CSV once per simulation
-        if (haveScenesShuffled == false)
-        {
-            //Shuffle the sceneArray and save to a CSV
-            shuffleScenes();
-            print("Checkpoint B");
-        }
-        haveScenesShuffled = true;  //Set boolean to true, so scenes only shuffle once upon new participant number
     }
 
     //Function that reads CSV file
@@ -420,47 +385,6 @@ public class logCSV : MonoBehaviour
             }
         }
     }
-
-
-    ////Function that reads the "commands.csv" CSV file and loads the last scene listed
-    //public void loadCommandedScene(string commandsPath)
-    //{
-    //    //Read in CSV file specified by csvPath input variable
-    //    using (var reader = new StreamReader(commandsPath))
-    //    {
-    //        //Create a different string list for each CSV column
-    //        List<string> orderIndexList = new List<string>();
-    //        List<string> sceneIndexList = new List<string>();
-    //        while (!reader.EndOfStream)
-    //        {
-    //            var line = reader.ReadLine();
-    //            var values = line.Split(',');
-    //            orderIndexList.Add(values[0]);
-    //            sceneIndexList.Add(values[1]);
-    //            data_sceneOrderIndex = orderIndexList;
-    //            data_sceneCommand = sceneIndexList;
-    //        }
-    //    }
-
-    //    //Save last command CSV array element to string
-    //    string lastElement = data_sceneCommand[data_sceneCommand.Count - 1];
-
-    //    //Check to see if the command has been executed or not yet. If not, load the scene and add the string "Finished"
-    //    if (lastElement != "Finished")
-    //    {
-    //        addFinishedCommand(CommandsPath);
-    //        //Loads the scene stored in the second to last element of the data_sceneCommmand list
-    //        print("Loading " + lastElement + "...");
-    //        SceneManager.LoadScene(lastElement, LoadSceneMode.Single);
-    //    }
-
-        //If most recent scene was the pop-up menu, open the scene commanded by the pop-up scene
-        // if(data_sceneName[data_sceneName.Count - 1] == "moonScene_Eyetracking")
-        // {
-        //     print("Loading Popup Scene");
-        // }
-        //Else do nothing
-    //}
 
     public static void addFinishedCommand(string filepath)
     {
@@ -576,19 +500,6 @@ public class logCSV : MonoBehaviour
             sceneArray[randomIndex] = temp;
         }
 
-        // while(sceneArray[14] == sceneArray[13])
-        // {   
-        //     //Only shuffle everything from 13 and before
-        //     for (int i = 0; i < 14; i++)
-        //     {
-        //         int randomIndex = ran.Next(0, i + 1);
-
-        //         string temp = sceneArray[i];
-        //         sceneArray[i] = sceneArray[randomIndex];
-        //         sceneArray[randomIndex] = temp;
-        //     }
-        // }
-
         //If one scene repeats itself, shuffle the remaining in descending order, down to the first two elements
         for (int j = sceneArray.Length - 1; j > 1; j--)
         {
@@ -654,51 +565,17 @@ public class logCSV : MonoBehaviour
         haveScenesShuffled = true;  //Set boolean to true, so scenes only shuffle once upon new participant number
     }
 
-    public void loadSceneCSV(string sFilePath)
+    public void loadScene()
     {
-        //Load in the scene data from the new CSV file, if it hasn't already been loaded
-        if (data_sceneOrder[1] == "null")
-        {
-            readNewSceneCSV(@sFilePath);
-        }
-
         if (sceneLoadIndex == 15)
         {
             Application.Quit();
             print("The study is ended");
         }
-        string sceneToLoad = data_sceneOrder[sceneLoadIndex];
-        print("The next scene to load is" + sceneToLoad);
+
+        string sceneToLoad = sceneArray[sceneLoadIndex];
+        print("The next scene to load is: " + sceneToLoad);
         sceneLoadIndex++;
-
-        ////Load scene, or executable if sceneToLoad specifies popupwindow
-        //if (sceneToLoad == "moonScene_PopUpWindow")
-        //{
-        //    //Adds a command of the scene index and scene name designated by "sceneLoadIndex + 1" to load upon return
-        //    addSceneCommand2(sceneLoadIndex, data_sceneOrder[sceneLoadIndex], @CommandsPath);
-        //    Process.Start(@"C:/Users/kdy7991/Desktop/Build_Files/PopUp_Window/VRHUD_Handtracking.exe");
-        //    // Process.Start(@"C:\Users\nmchenry1\Desktop\Build_Files\PopUp_Window\VRHUD_Handtracking.exe");
-        //    Application.Quit();
-        //}
-        //else
-        //{
-            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
-        //}
+        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
-
-    //public static void addSceneCommand2(int orderIndex, string sceneNameString, string cmdfilepath)
-    //{
-    //    try
-    //    {
-    //        using (System.IO.StreamWriter file = new System.IO.StreamWriter(cmdfilepath, true))
-    //        {
-    //            //Save data as a new line in CSV file
-    //            file.WriteLine(orderIndex + "," + sceneNameString + ",");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw new ApplicationException("This program did an oopsie :", ex);
-    //    }
-    //}
 }
